@@ -34,6 +34,8 @@ public class SecurityConfiguration {
                 .permitAll()
                 .requestMatchers("/api/Emp/resetpassword")
                 .permitAll()
+                .requestMatchers("/cat/add","/cat/update","/cat/delete","/food/add","/food/update","/food/delete")
+                .hasAuthority("Rcashier")
                 .anyRequest()
                 .authenticated()
                 .and()

@@ -4,8 +4,6 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-import java.awt.*;
 import java.util.List;
 
 
@@ -22,7 +20,7 @@ public class Orders {
     private boolean ready;
     @ManyToOne
     @JoinColumn(name = "user_id")
-    private User user;
+    private Employee employee;
     @OneToMany(mappedBy = "orders")
     private List<Order_Food> foodOrders;
 
