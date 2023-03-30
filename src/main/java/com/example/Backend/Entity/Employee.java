@@ -25,7 +25,9 @@ public class Employee implements UserDetails {
     @Id
     @GeneratedValue
     private Integer id;
-    private String firstname, lastname, email, password, company, position;
+    @Column(unique = true)
+    private String  email;
+    private String firstname, lastname,  password, company, position;
     private Integer phone;
     private boolean theme,availability;
 
