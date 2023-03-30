@@ -10,10 +10,7 @@ import java.util.List;
 @RequestMapping("/cat")
 @RestController
 public class CategoryController {
-
     private CategoryService categoryService;
-
-
     @Autowired
     public CategoryController(CategoryService categoryService){
         this.categoryService=categoryService;
@@ -21,9 +18,7 @@ public class CategoryController {
     @CrossOrigin(origins = "http://localhost:57384")
     @GetMapping("/getcat")
     public Category getCat(@RequestParam int id){
-
          return categoryService.getCat(id);
-
     }
 
     @CrossOrigin(origins = "http://localhost:59838/")
