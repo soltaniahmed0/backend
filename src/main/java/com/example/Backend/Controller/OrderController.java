@@ -3,10 +3,14 @@ package com.example.Backend.Controller;
 
 import com.example.Backend.Entity.Orders;
 import com.example.Backend.Services.OrderService;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-@RequestMapping("/order")
+@RequestMapping("/cart")
 @RestController
 public class OrderController {
     private OrderService orderService;
@@ -15,11 +19,13 @@ public class OrderController {
         this.orderService = orderService;
     }
     @CrossOrigin(origins = "http://localhost:57384")
-    @PostMapping("/addOrder")
+    @PostMapping("/add")
     public Orders AddOrder(@RequestBody Orders order){
-        //orderService.saveOrders();
-        return orderService.saveOrder(order);
+        orderService.saveOrder(order);
+        return order;
     }
+
+
     @CrossOrigin(origins = "http://localhost:57384")
     @GetMapping("/orders")
     public List<Orders> getOrders(){
@@ -30,9 +36,9 @@ public class OrderController {
     public Orders ge(@RequestBody int id){
         return orderService.UpdateOrder(id);
     }
-    @CrossOrigin(origins = "http://localhost:57384")
+    /*@CrossOrigin(origins = "http://localhost:57384")
     @PutMapping("/orderUser")
     public List<Orders> test(@RequestBody int id){
         return orderService.getUserOrders(id);
-    }
+    }*/
 }

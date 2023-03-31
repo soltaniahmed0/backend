@@ -37,7 +37,7 @@ public class AuthenticationService {
                 .theme(request.isTheme())
                 .availability(request.isAvailability())
                 .phone(request.getPhone())
-                .id(request.getId())
+                .employee_id(request.getEmployee_id())
                 .build();
         var savedUser = repository.save(user);
         var jwtToken = jwtService.generateToken(user);

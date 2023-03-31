@@ -14,6 +14,6 @@ public interface OrderRepository extends JpaRepository<Orders, Integer> {
     //List<Orders> findByReadyAndUser_id(Boolean ready,int user_id);
 
 
-    @Query("SELECT o FROM Orders o WHERE o.employee.id = :userId")
-    List<Orders> findByUser_id(@Param("userId") int userId);
+    /*@Query("SELECT o FROM Orders o WHERE o.employee.employee_id = :userId")
+    List<Orders> findByEmployee_Id(int i);*/
 }

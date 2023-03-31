@@ -24,11 +24,11 @@ import java.util.Optional;
 public class Employee implements UserDetails {
     @Id
     @GeneratedValue
-    private Integer id;
+    private int employee_id;
     @Column(unique = true)
     private String  email;
     private String firstname, lastname,  password, company, position;
-    private Integer phone;
+    private int phone;
     private boolean theme,availability;
     @Lob
     @Nullable
@@ -90,11 +90,11 @@ public class Employee implements UserDetails {
     }
 
     public Integer getId() {
-        return id;
+        return employee_id;
     }
 
     public void setId(Integer id) {
-        this.id = id;
+        this.employee_id = id;
     }
 
     public String getFirstname() {
