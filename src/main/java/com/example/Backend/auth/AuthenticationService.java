@@ -56,18 +56,16 @@ public class AuthenticationService {
         );
         var user = repository.findByEmail(request.getEmail())
                 .orElseThrow();
-        List<Token> token=tokenRepository.findAllValidTokenByUser(user.getId());
-        var jwtToken="";
-        if(token.isEmpty())
-        {
-             jwtToken = jwtService.generateToken(user);
+        List<Token> token = tokenRepository.findAllValidTokenByUser(user.getId());
+        var jwtToken = "";
+        if (token.isEmpty()) {
+            jwtToken = jwtService.generateToken(user);
 
             saveUserToken(user, jwtToken);
-        }
-        else {
-for (Token t:token){
-    jwtToken=t.getToken();
-}
+        } else {
+            for (Token t : token) {
+                jwtToken = t.getToken();
+            }
         }
 
         return AuthenticationResponse.builder()

@@ -45,9 +45,35 @@ public class EmployeeService {
             // Send an email with the new password
             sendEmail(employee.getEmail(), "Your new password", "Your new password is: " + newPassword);
         }
+    }
+    public String sendEmailVerification(String email) throws Exception {
+        Optional<Employee>employeeOptional=employeeRepository.findByEmail(email);
+        if(employeeOptional.isPresent()){
+            String code=generateCode();
+            try {
+                sendEmail(email, "Your verification code", "Code: " + code);
+            } catch (Exception e) {
+                throw new Exception("Failed to send verification email: " + e.getMessage());
+            }
+            return code;
+        }
+        else
+        {
+
+            throw new Exception("Employee not found for email: " + email);
+        }
+    }
+    private String generateCode(){
+        String allowedChars = "0123456789";
+        Random random = new Random();
+        StringBuilder code = new StringBuilder();
+        for (int i = 0; i < 5; i++) {
+            int index = random.nextInt(allowedChars.length());
+            code.append(allowedChars.charAt(index));
+        }
+        return code.toString();
 
     }
-
     private String generateNewPassword() {
         String allowedChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()_-+=[]{}<>,.?/\\|";
         Random random = new Random();
@@ -71,5 +97,12 @@ public class EmployeeService {
         message.setSubject(subject);
         message.setText(text);
         javaMailSender.send(message);
+    }
+    public void savePhoto(Integer employeeId, byte[] photo) {
+        employeeRepository.savePhoto(employeeId, photo);
+    }
+    public  void SetnewPassword(Integer id,String password){
+        String newPassword=encodePassword(password);
+        employeeRepository.changePassword(id,newPassword);
     }
 }

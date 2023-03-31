@@ -13,7 +13,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 
+import java.util.Base64;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @RestController
@@ -46,6 +48,7 @@ public class EmployeeController {
     public ResponseEntity<Employee> updateEmployee(@PathVariable Integer id, @RequestBody Employee employee) {
         Optional<Employee> existingEmployee = employeeService.getEmployeeById(id);
         if (existingEmployee.isPresent()) {
+            byte[] photoBytes = Base64.getDecoder().decode(employee.getPhoto());
             Employee updatedEmployee = existingEmployee.get();
             updatedEmployee.setEmail(employee.getEmail());
             updatedEmployee.setFirstname(employee.getFirstname());
@@ -53,6 +56,7 @@ public class EmployeeController {
             updatedEmployee.setEnterprise(employee.getEnterprise());
             updatedEmployee.setPosition(employee.getPosition());
             updatedEmployee.setPhone(employee.getPhone());
+            updatedEmployee.setPhoto(photoBytes);
             updatedEmployee = employeeService.updateEmployee(updatedEmployee);
 
             return ResponseEntity.ok(updatedEmployee);
@@ -81,6 +85,29 @@ public class EmployeeController {
         } catch (JwtException e) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
         }
+    }
+    @GetMapping("/getVerificationCode/{email}")
+    public  ResponseEntity<String > getVerificationCode(@PathVariable  String email) throws Exception {
+        try {
+            String code = employeeService.sendEmailVerification(email);
+            return ResponseEntity.ok(code);
+        } catch (Exception e) {
+
+            return new ResponseEntity<>("Error sending verification code: " + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
+    }
+    @PutMapping("/updatePassword/{id}")
+    public ResponseEntity<String> SetNewPassword(@PathVariable Integer id,@RequestBody Map<String, String> requestBody){
+            try {
+                String newPassword =requestBody.get("password");
+                employeeService.SetnewPassword(id,newPassword);
+                return ResponseEntity.ok("password have been updated"+newPassword.toString());
+            }
+            catch (Exception e)
+            {
+                return new ResponseEntity<>("Error in updating password "+ e.getMessage(),HttpStatus.INTERNAL_SERVER_ERROR);
+            }
     }
 
 

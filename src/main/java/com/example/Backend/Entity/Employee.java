@@ -1,5 +1,6 @@
 package com.example.Backend.Entity;
 
+import jakarta.annotation.Nullable;
 import jakarta.persistence.*;
 import jdk.jfr.Enabled;
 import lombok.AllArgsConstructor;
@@ -28,9 +29,12 @@ public class Employee implements UserDetails {
     @Column(unique = true)
     private String  email;
     private String firstname, lastname,  password, company, position;
+    @Column(unique = true)
     private Integer phone;
     private boolean theme,availability;
-
+    @Lob
+    @Nullable
+    private byte[] photo;
     public void setPassword(String password) {
         this.password = password;
     }

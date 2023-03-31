@@ -32,7 +32,7 @@ public class SecurityConfiguration {
                 .hasAuthority("ADMIN")
                 .requestMatchers("/api/v1/auth/authenticate")
                 .permitAll()
-                .requestMatchers("/api/Emp/resetpassword")
+                .requestMatchers("/api/Emp/resetpassword","/api/Emp/getVerificationCode/{email}")
                 .permitAll()
                 .requestMatchers("/cat/add","/cat/update","/cat/delete","/food/add","/food/update","/food/delete")
                 .hasAuthority("Rcashier")
