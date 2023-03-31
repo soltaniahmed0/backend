@@ -1,7 +1,7 @@
 package com.example.Backend.Entity;
 
+import io.micrometer.common.lang.Nullable;
 import jakarta.persistence.*;
-import jdk.jfr.Enabled;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -30,6 +30,9 @@ public class Employee implements UserDetails {
     private String firstname, lastname,  password, company, position;
     private Integer phone;
     private boolean theme,availability;
+    @Lob
+    @Nullable
+    private byte[] photo;
 
     public void setPassword(String password) {
         this.password = password;
