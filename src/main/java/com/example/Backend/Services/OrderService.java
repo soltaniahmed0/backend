@@ -1,5 +1,6 @@
 package com.example.Backend.Services;
 
+import com.example.Backend.Entity.Order_Food;
 import com.example.Backend.Entity.Orders;
 import com.example.Backend.Repository.OrderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,7 +41,9 @@ public class OrderService {
 
     }
 
-    
+    public List<Orders> getUserOrders(int i){
+        return orderRepository.findByEmployee_Id(i);
+    }
     /*public List<Orders> getUserOrders(int id){
         return orderRepository.findByEmployee_Id(id);
     }*/

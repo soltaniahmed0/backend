@@ -14,9 +14,11 @@ public class Order_Food {
     @Id
     @GeneratedValue
     private int Order_Food_id;
-    @ManyToOne
-    @JoinColumn(name = "order_id")
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "order_id",insertable=false, updatable=false)
     private Orders orders;
+    @Column(name = "order_id")
+    private int orders_id;
     @ManyToOne
     @JoinColumn(name = "food_id")
     private Food foods;
