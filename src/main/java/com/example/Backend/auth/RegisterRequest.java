@@ -20,5 +20,5 @@ public class RegisterRequest {
   private Integer phone;
   private boolean theme;
   private boolean availability;
-  private Integer id;
+  private Integer employee_id;
 }

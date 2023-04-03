@@ -1,8 +1,9 @@
 package com.example.Backend.Entity;
 
+
 import jakarta.annotation.Nullable;
+
 import jakarta.persistence.*;
-import jdk.jfr.Enabled;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -25,16 +26,19 @@ import java.util.Optional;
 public class Employee implements UserDetails {
     @Id
     @GeneratedValue
-    private Integer id;
+    private int employee_id;
     @Column(unique = true)
     private String  email;
     private String firstname, lastname,  password, company, position;
+
     @Column(unique = true)
     private Integer phone;
+
     private boolean theme,availability;
     @Lob
-    @Nullable
+    @Column(name = "photo", columnDefinition="BLOB")
     private byte[] photo;
+
     public void setPassword(String password) {
         this.password = password;
     }
@@ -60,6 +64,22 @@ public class Employee implements UserDetails {
 
     public Integer getPhone() {
         return phone;
+    }
+
+    public int getEmployee_id() {
+        return employee_id;
+    }
+
+    public void setEmployee_id(int employee_id) {
+        this.employee_id = employee_id;
+    }
+
+    public byte[] getPhoto() {
+        return photo;
+    }
+
+    public void setPhoto(byte[] photo) {
+        this.photo = photo;
     }
 
     public void setPhone(Integer phone) {
@@ -91,11 +111,11 @@ public class Employee implements UserDetails {
     }
 
     public Integer getId() {
-        return id;
+        return employee_id;
     }
 
     public void setId(Integer id) {
-        this.id = id;
+        this.employee_id = id;
     }
 
     public String getFirstname() {

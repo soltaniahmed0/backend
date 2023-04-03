@@ -30,7 +30,7 @@ public class JwtService {
             UserDetails userDetails
     ) {
         Date now = new Date();
-        Date expiration = new Date(now.getTime() + 1000 * 60);
+        Date expiration = new Date(now.getTime() + 1000 * 60*60*24);
         Timer timer = new Timer();
         timer.schedule(new TimerTask() {
             @Override

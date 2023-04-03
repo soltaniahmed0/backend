@@ -33,6 +33,7 @@ public class EmployeeService {
     public Optional<Employee> getEmployeeById(Integer id) {
         return employeeRepository.findById(id);
     }
+
     @Autowired
     private JavaMailSender javaMailSender;
     public void sendPasswordByEmail(String email) {

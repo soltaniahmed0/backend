@@ -19,10 +19,10 @@ public interface EmployeeRepository extends JpaRepository<Employee,Integer> {
     Employee findByPosition(String position);
     @Modifying
     @Transactional
-    @Query("UPDATE Employee e SET e.photo = :photo WHERE e.id = :id")
+    @Query("UPDATE Employee e SET e.photo = :photo WHERE e.employee_id = :id")
     void savePhoto(@Param("id") Integer id, @Param("photo") byte[] photo);
     @Modifying
-    @Query("UPDATE Employee SET password = :password WHERE id = :id")
+    @Query("UPDATE Employee SET password = :password WHERE employee_id = :id")
     void changePassword(@Param("id")Integer id,@Param("password")String password);
 
 }

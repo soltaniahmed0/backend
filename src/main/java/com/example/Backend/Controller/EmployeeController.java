@@ -48,7 +48,6 @@ public class EmployeeController {
     public ResponseEntity<Employee> updateEmployee(@PathVariable Integer id, @RequestBody Employee employee) {
         Optional<Employee> existingEmployee = employeeService.getEmployeeById(id);
         if (existingEmployee.isPresent()) {
-            byte[] photoBytes = Base64.getDecoder().decode(employee.getPhoto());
             Employee updatedEmployee = existingEmployee.get();
             updatedEmployee.setEmail(employee.getEmail());
             updatedEmployee.setFirstname(employee.getFirstname());
@@ -56,9 +55,8 @@ public class EmployeeController {
             updatedEmployee.setEnterprise(employee.getEnterprise());
             updatedEmployee.setPosition(employee.getPosition());
             updatedEmployee.setPhone(employee.getPhone());
-            updatedEmployee.setPhoto(photoBytes);
+            updatedEmployee.setPhoto(employee.getPhoto());
             updatedEmployee = employeeService.updateEmployee(updatedEmployee);
-
             return ResponseEntity.ok(updatedEmployee);
         } else {
             return ResponseEntity.notFound().build();

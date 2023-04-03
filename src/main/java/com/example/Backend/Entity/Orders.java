@@ -6,7 +6,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import java.util.List;
 
-
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -19,7 +18,7 @@ public class Orders {
     private String order_date;
     private boolean ready;
     @ManyToOne
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "employee_id")
     private Employee employee;
     @OneToMany(mappedBy = "orders")
     private List<Order_Food> foodOrders;
