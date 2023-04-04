@@ -1,6 +1,8 @@
 package com.example.Backend.Entity;
 
-import io.micrometer.common.lang.Nullable;
+
+import jakarta.annotation.Nullable;
+
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -25,10 +27,13 @@ public class Employee implements UserDetails {
     @Column(unique = true)
     private String  email;
     private String firstname, lastname,  password, company, position;
-    private int phone;
+
+    @Column(unique = true)
+    private Integer phone;
+
     private boolean theme,availability;
     @Lob
-    @Nullable
+    @Column(name = "photo", columnDefinition="BLOB")
     private byte[] photo;
 
     public void setPassword(String password) {
@@ -56,6 +61,22 @@ public class Employee implements UserDetails {
 
     public Integer getPhone() {
         return phone;
+    }
+
+    public int getEmployee_id() {
+        return employee_id;
+    }
+
+    public void setEmployee_id(int employee_id) {
+        this.employee_id = employee_id;
+    }
+
+    public byte[] getPhoto() {
+        return photo;
+    }
+
+    public void setPhoto(byte[] photo) {
+        this.photo = photo;
     }
 
     public void setPhone(Integer phone) {
