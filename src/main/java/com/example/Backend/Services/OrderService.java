@@ -44,8 +44,15 @@ public class OrderService {
     public List<Orders> getUserOrders(int i){
         return orderRepository.findByEmployee_Id(i);
     }
-    /*public List<Orders> getUserOrders(int id){
-        return orderRepository.findByEmployee_Id(id);
-    }*/
+    public List<Orders> getOrders(int i){
+        return orderRepository.findAll();
+    }
+    public List<Orders> getnotReadyOrders(){
+        return orderRepository.findByReady(false);
+    }
+    public List<Orders> getnotReadyUserOrders(int i){
+        return orderRepository.findByEmployee_IdAndReady(i,false);
+    }
+
 
 }

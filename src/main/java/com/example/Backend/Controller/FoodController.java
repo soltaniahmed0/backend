@@ -3,7 +3,7 @@ package com.example.Backend.Controller;
 
 
 import com.example.Backend.Entity.Food;
-import com.example.Backend.Entity.FoodDataRequest;
+
 import com.example.Backend.Services.FoodService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -38,14 +38,14 @@ public class FoodController {
 
     @CrossOrigin(origins = "http://localhost:59838/")
     @PostMapping("/add")
-    public void add(@RequestBody FoodDataRequest FoodStrings){
+    public void add(@RequestBody Food FoodStrings){
 
         foodService.addFood(FoodStrings);
     }
 
     @CrossOrigin(origins = "http://localhost:59838/")
     @PutMapping("/update")
-    public void update(@RequestBody FoodDataRequest foodStrings){
+    public void update(@RequestBody Food foodStrings){
         foodService.update(foodStrings);
 
     }

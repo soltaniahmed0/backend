@@ -2,7 +2,7 @@ package com.example.Backend.Services;
 
 
 import com.example.Backend.Entity.Food;
-import com.example.Backend.Entity.FoodDataRequest;
+
 import com.example.Backend.Repository.FoodRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -30,8 +30,8 @@ public class FoodService {
         return foodRepository.findAll();
     }
 
-    public void addFood(FoodDataRequest f ){
-        Food food=new Food(f.getFoodName(),f.getImg(),f.getPrice(),f.getCat(),f.available);
+    public void addFood(Food f ){
+        Food food=new Food(f.getFoodName(),f.getImg(),f.getPrice(),f.getCat(),f.available,f.description);
 
 
         foodRepository.save(food);
@@ -44,14 +44,10 @@ public class FoodService {
         return  foodRepository.findById(id).orElse(null);
     }
 
-    public Food update(FoodDataRequest foodStrings) {
+    public Food update(Food foodStrings) {
         //Food foodForm=new Food(foodStrings.getFoodID(),foodStrings.getFoodName(),foodStrings.getImg(),foodStrings.getPrice(),_category(foodStrings.getCat()),foodStrings.isAvailable());
         Food existingOrder=getFood(foodStrings.getFoodID());
-        existingOrder.setFoodName(foodStrings.getFoodName());
-        existingOrder.setPrice(foodStrings.getPrice());
-        existingOrder.setCat(foodStrings.getCat());
-        existingOrder.setAvailable(foodStrings.available);
-        existingOrder.setImg(foodStrings.getImg());
+        existingOrder=foodStrings;
 
         return foodRepository.save(existingOrder);
 

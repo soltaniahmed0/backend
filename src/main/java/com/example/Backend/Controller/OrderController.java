@@ -5,12 +5,10 @@ import com.example.Backend.Entity.Order_Food;
 import com.example.Backend.Entity.Orders;
 import com.example.Backend.Services.OrderFoodService;
 import com.example.Backend.Services.OrderService;
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
+import java.util.Date;
 import java.util.List;
 @RequestMapping("/orders")
 @RestController
@@ -24,7 +22,8 @@ public class OrderController {
     @CrossOrigin(origins = "http://localhost:57384")
     @PostMapping("/add")
     public Orders AddOrder(@RequestBody Orders order){
-        System.out.println();
+        order.setDate(LocalDate.now());
+        System.out.println(order.getDate());
         orderService.saveOrder(order);
         for (Order_Food orderfood:order.getFoodOrders())
         {
@@ -38,11 +37,19 @@ public class OrderController {
 
     @CrossOrigin(origins = "http://localhost:57384")
     @GetMapping("/userorders")
-    public List<Orders> getOrders(@RequestParam int id){
-        return orderService.getUserOrders(id);
+    public List<Orders> getUserOrders(@RequestParam int id){
+        List<Orders> res =orderService.getUserOrders(id);
+        System.out.println(res);
+        return res;
+    }
+
+    @CrossOrigin(origins = "http://localhost:57384")
+    @GetMapping("/getOrders")
+    public List<Orders> getOrders(){
+        return orderService.getOrders();
     }
     @CrossOrigin(origins = "http://localhost:57384")
-    @PutMapping("/orderReady")
+    @GetMapping("/orderReady")
     public Orders ge(@RequestBody int id){
         return orderService.UpdateOrder(id);
     }

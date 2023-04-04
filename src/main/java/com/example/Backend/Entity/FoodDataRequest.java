@@ -1,3 +1,4 @@
+/*
 package com.example.Backend.Entity;
 
 
@@ -69,3 +70,4 @@ public class FoodDataRequest {
         this.available = available;
     }
 }
+*/

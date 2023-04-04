@@ -1,3 +1,4 @@
+
 package com.example.Backend.config;
 
 import lombok.RequiredArgsConstructor;
@@ -54,3 +55,4 @@ public class SecurityConfiguration {
         return http.build();
     }
 }
+

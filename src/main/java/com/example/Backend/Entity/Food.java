@@ -23,17 +23,18 @@ public class Food {
     @ManyToOne
     @JoinColumn(name = "cat_id")
     Category cat;
+    public String description="";
 
 
 
 
-    public Food(String foodName, String img, float price,Category cat, boolean available) {
+    public Food(String foodName, String img, float price,Category cat, boolean available,String description) {
         this.foodName = foodName;
         this.img = img;
         this.price = price;
         this.cat=cat;
         this.available = available;
-
+        this.available=available;
 
 
     }

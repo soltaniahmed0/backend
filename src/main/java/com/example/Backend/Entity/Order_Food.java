@@ -24,5 +24,13 @@ public class Order_Food {
     private Food foods;
     private int  qte;
 
-
+    @Override
+    public String toString() {
+        return "Order_Food{" +
+                "Order_Food_id=" + Order_Food_id +
+                ", orders_id=" + orders_id +
+                ", foods=" + foods +
+                ", qte=" + qte +
+                '}';
+    }
 }
