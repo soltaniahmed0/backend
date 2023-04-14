@@ -20,8 +20,9 @@ public class OrderService {
 
     }
     public Orders saveOrder(Orders o){
-
-        return orderRepository.save(o);
+        Orders res =orderRepository.save(o);
+        System.out.println(res);
+        return res;
     }
     public List<Orders> saveOrders(){
         return orderRepository.saveAll(Orders);

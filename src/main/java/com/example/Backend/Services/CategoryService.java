@@ -18,9 +18,6 @@ public class CategoryService {
     }
 
     public void addcat(Category cat ){
-
-
-
         categoryRepository.save(cat);
         }
     public void deleteCat(int id){

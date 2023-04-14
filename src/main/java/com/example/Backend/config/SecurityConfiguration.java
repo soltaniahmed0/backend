@@ -29,14 +29,14 @@ public class SecurityConfiguration {
                 .csrf()
                 .disable()
                 .authorizeHttpRequests()
-                .requestMatchers("/api/v1/auth/register","/cat/add","/cat/update","/cat/delete","/food/add","/food/update","/food/delete")
-                .hasAuthority("ADMIN")
+//                .requestMatchers("/api/v1/auth/register","/cat/add","/cat/update","/cat/delete","/food/add","/food/update","/food/delete")
+//                .hasAuthority("ADMIN")
                 .requestMatchers("/api/v1/auth/authenticate")
                 .permitAll()
-                .requestMatchers("/api/Emp/resetpassword","/api/Emp/getVerificationCode/{email}")
-                .permitAll()
-                .requestMatchers("/cat/add","/cat/update","/cat/delete","/food/add","/food/update","/food/delete")
-                .hasAuthority("Rcashier")
+//                .requestMatchers("/api/Emp/resetpassword","/api/Emp/getVerificationCode/{email}")
+//                .permitAll()
+//                .requestMatchers("/cat/add","/cat/update","/cat/delete","/food/add","/food/update","/food/delete")
+//                .hasAuthority("Rcashier")
                 .anyRequest()
                 .authenticated()
                 .and()
@@ -52,6 +52,7 @@ public class SecurityConfiguration {
         ;
 
         return http.build();
+
     }
 }
 

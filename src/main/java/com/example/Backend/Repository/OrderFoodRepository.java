@@ -1,9 +1,7 @@
 package com.example.Backend.Repository;
 
 import com.example.Backend.Entity.Order_Food;
-import com.example.Backend.Entity.requests.OrderFoodResult;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
