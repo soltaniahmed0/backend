@@ -36,7 +36,7 @@ public class Employee implements UserDetails {
 
     private boolean theme,availability;
     @Lob
-    @Column(name = "photo", columnDefinition="BLOB")
+    @Column(name = "photo", columnDefinition="longblob")
     private byte[] photo;
 
     public void setPassword(String password) {

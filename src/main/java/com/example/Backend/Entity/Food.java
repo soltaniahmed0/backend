@@ -17,9 +17,12 @@ public class Food {
     @GeneratedValue
     public int foodID;
     public String foodName;
-    public String img;
+
     public float price;
     public boolean available;
+    @Lob
+    @Column(name = "photo", columnDefinition="longblob")
+    private byte[] img;
     @ManyToOne
     @JoinColumn(name = "cat_id")
     Category cat;
@@ -27,7 +30,7 @@ public class Food {
 
 
 
-    public Food(String foodName, String img, float price,Category cat, boolean available) {
+    public Food(String foodName, byte[] img, float price,Category cat, boolean available) {
         this.foodName = foodName;
         this.img = img;
         this.price = price;

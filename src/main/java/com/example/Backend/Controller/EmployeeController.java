@@ -13,7 +13,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 
-import java.util.Base64;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -25,10 +24,7 @@ public class EmployeeController {
     @Autowired
     EmployeeService employeeService;
 
-        @GetMapping("/ok")
-    public ResponseEntity<String> hello(){
-        return ResponseEntity.ok("hello");
-    }
+
     @GetMapping("/all")
     public List<Employee> getEmps() {
         System.out.println(employeeService.getAllEmps());
@@ -38,10 +34,6 @@ public class EmployeeController {
     public ResponseEntity<String> resetPassword(@RequestParam("email") String email) {
         employeeService.sendPasswordByEmail(email);
         return new ResponseEntity<>("Password reset successfully", HttpStatus.OK);
-    }
-    @GetMapping( "/salem")
-    public ResponseEntity<String> salem() {
-        return ResponseEntity.ok("salem");
     }
 
     @PutMapping("/updateemp/{id}")
@@ -56,6 +48,7 @@ public class EmployeeController {
             updatedEmployee.setPosition(employee.getPosition());
             updatedEmployee.setPhone(employee.getPhone());
             updatedEmployee.setPhoto(employee.getPhoto());
+            updatedEmployee.setTheme(employee.isTheme());
             updatedEmployee = employeeService.updateEmployee(updatedEmployee);
             return ResponseEntity.ok(updatedEmployee);
         } else {
@@ -107,6 +100,7 @@ public class EmployeeController {
                 return new ResponseEntity<>("Error in updating password "+ e.getMessage(),HttpStatus.INTERNAL_SERVER_ERROR);
             }
     }
+
 
 
 }

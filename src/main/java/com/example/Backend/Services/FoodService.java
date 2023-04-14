@@ -31,7 +31,7 @@ public class FoodService {
     }
 
     public void addFood(FoodDataRequest f ){
-        Food food=new Food(f.getFoodName(),f.getImg(),f.getPrice(),f.getCat(),f.available);
+        Food food=new Food(f.getFoodName(), f.getImg().getBytes(),f.getPrice(),f.getCat(),f.available);
 
 
         foodRepository.save(food);
@@ -51,7 +51,7 @@ public class FoodService {
         existingOrder.setPrice(foodStrings.getPrice());
         existingOrder.setCat(foodStrings.getCat());
         existingOrder.setAvailable(foodStrings.available);
-        existingOrder.setImg(foodStrings.getImg());
+        existingOrder.setImg(foodStrings.getImg().getBytes());
 
         return foodRepository.save(existingOrder);
 
