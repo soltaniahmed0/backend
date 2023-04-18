@@ -5,7 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.List;
+import java.util.Arrays;
 
 @Data
 @AllArgsConstructor
@@ -17,30 +17,40 @@ public class Food {
     @GeneratedValue
     public int foodID;
     public String foodName;
-
+    @Lob
+    @Column(name = "img", columnDefinition="longblob")
+    private byte[] img;
     public float price;
     public boolean available;
-    @Lob
-    @Column(name = "photo", columnDefinition="longblob")
-    private byte[] img;
     @ManyToOne
     @JoinColumn(name = "cat_id")
     Category cat;
+    public String description="";
 
 
 
 
-    public Food(String foodName, byte[] img, float price,Category cat, boolean available) {
+    public Food(String foodName, byte[] img, float price, Category cat, boolean available, String description) {
         this.foodName = foodName;
         this.img = img;
         this.price = price;
         this.cat=cat;
         this.available = available;
-
+        this.available=available;
 
 
     }
 
+    @Override
+    public String toString() {
+        return "Food{" +
+                "foodID=" + foodID +
+                ", foodName='" + foodName + '\'' +
 
-
+                ", price=" + price +
+                ", available=" + available +
+                ", cat=" + cat +
+                ", description='" + description + '\'' +
+                '}';
+    }
 }

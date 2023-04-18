@@ -25,7 +25,9 @@ public class CategoryController {
     @GetMapping("/getcats")
 
     public List<Category> getcats(){
-        return categoryService.getCategorys();
+        List<Category> res=categoryService.getCategorys();
+        System.out.println(res.toString());
+        return res;
     }
 
     @CrossOrigin(origins = "http://localhost:59838/")
