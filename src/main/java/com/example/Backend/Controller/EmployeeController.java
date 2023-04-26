@@ -13,7 +13,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 
-import java.util.Base64;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -25,10 +24,7 @@ public class EmployeeController {
     @Autowired
     EmployeeService employeeService;
 
-        @GetMapping("/ok")
-    public ResponseEntity<String> hello(){
-        return ResponseEntity.ok("hello");
-    }
+
     @GetMapping("/all")
     public List<Employee> getEmps() {
         System.out.println(employeeService.getAllEmps());
@@ -39,10 +35,6 @@ public class EmployeeController {
         employeeService.sendPasswordByEmail(email);
         return new ResponseEntity<>("Password reset successfully", HttpStatus.OK);
     }
-    @GetMapping( "/salem")
-    public ResponseEntity<String> salem() {
-        return ResponseEntity.ok("salem");
-    }
 
     @PutMapping("/updateemp/{id}")
     public ResponseEntity<Employee> updateEmployee(@PathVariable Integer id, @RequestBody Employee employee) {
@@ -52,10 +44,12 @@ public class EmployeeController {
             updatedEmployee.setEmail(employee.getEmail());
             updatedEmployee.setFirstname(employee.getFirstname());
             updatedEmployee.setLastname(employee.getLastname());
-            updatedEmployee.setEnterprise(employee.getEnterprise());
+            updatedEmployee.setCompany(employee.getCompany());
             updatedEmployee.setPosition(employee.getPosition());
             updatedEmployee.setPhone(employee.getPhone());
             updatedEmployee.setPhoto(employee.getPhoto());
+            updatedEmployee.setTheme(employee.isTheme());
+            updatedEmployee.setAvailability(employee.isAvailability());
             updatedEmployee = employeeService.updateEmployee(updatedEmployee);
             return ResponseEntity.ok(updatedEmployee);
         } else {
@@ -84,6 +78,17 @@ public class EmployeeController {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
         }
     }
+    @GetMapping("/getAllusersfromthesameCompany/{company}")
+    public List<Employee> getAllusersfromthesameCompany(@PathVariable String  company) throws Exception{
+        try{
+            return employeeService.EmployeefromsameCompany(company);
+        }
+        catch (Exception e)
+        {
+            return null;
+        }
+
+    }
     @GetMapping("/getVerificationCode/{email}")
     public  ResponseEntity<String > getVerificationCode(@PathVariable  String email) throws Exception {
         try {
@@ -107,6 +112,7 @@ public class EmployeeController {
                 return new ResponseEntity<>("Error in updating password "+ e.getMessage(),HttpStatus.INTERNAL_SERVER_ERROR);
             }
     }
+
 
 
 }

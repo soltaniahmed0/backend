@@ -25,7 +25,7 @@ public class FoodController {
     @GetMapping("/getfood")
     public Food getFood(@RequestParam int id){
 
-         return foodService.getFood(id);
+        return foodService.getFood(id);
 
     }
 

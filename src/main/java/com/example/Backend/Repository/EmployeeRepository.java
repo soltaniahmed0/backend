@@ -15,6 +15,7 @@ import java.util.Optional;
 
 public interface EmployeeRepository extends JpaRepository<Employee,Integer> {
     Optional<Employee> findByEmail(String email);
+
     List<Employee> findAll();
     Employee findByPosition(String position);
     @Modifying
@@ -24,5 +25,9 @@ public interface EmployeeRepository extends JpaRepository<Employee,Integer> {
     @Modifying
     @Query("UPDATE Employee SET password = :password WHERE employee_id = :id")
     void changePassword(@Param("id")Integer id,@Param("password")String password);
+    List<Employee> findByCompany(String company);
+    @Modifying
+    @Query("SELECT company FROM Employee GROUP BY company")
+    List getAlltheCompany();
 
 }

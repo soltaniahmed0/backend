@@ -38,7 +38,7 @@ public class SecurityConfiguration {
 //                .requestMatchers("/cat/add","/cat/update","/cat/delete","/food/add","/food/update","/food/delete")
 //                .hasAuthority("Rcashier")
                 .anyRequest()
-                .authenticated()
+                .permitAll()
                 .and()
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
