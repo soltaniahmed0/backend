@@ -19,6 +19,7 @@ public class Snack {
     private double price;
     private int qtt;
     private String description;
+
 }
 
 
