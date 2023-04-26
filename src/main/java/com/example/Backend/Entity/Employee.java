@@ -1,6 +1,7 @@
 package com.example.Backend.Entity;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.annotation.Nullable;
 
 import jakarta.persistence.*;
@@ -30,7 +31,9 @@ public class Employee implements UserDetails {
 
     @Column(unique = true)
     private Integer phone;
-
+    @OneToMany(mappedBy = "employee")
+    @JsonIgnoreProperties("employee")
+    private List<Events> events;
     private boolean theme,availability;
     @Lob
     @Column(name = "photo", columnDefinition="longblob")
@@ -181,6 +184,22 @@ public class Employee implements UserDetails {
     public boolean isEnabled() {
         return true;
     }
-
+    @Override
+    public String toString() {
+        return "Employee{" +
+                "employee_id=" + employee_id +
+                ", email='" + email + '\'' +
+                ", firstname='" + firstname + '\'' +
+                ", lastname='" + lastname + '\'' +
+                ", password='" + password + '\'' +
+                ", company='" + company + '\'' +
+                ", position='" + position + '\'' +
+                ", phone=" + phone +
+                ", theme=" + theme +
+                ", availability=" + availability +
+                ", photo=" + Arrays.toString(photo) +
+                ", role=" + role +
+                '}';
+    }
 
 }

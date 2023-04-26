@@ -44,7 +44,7 @@ public class EmployeeController {
             updatedEmployee.setEmail(employee.getEmail());
             updatedEmployee.setFirstname(employee.getFirstname());
             updatedEmployee.setLastname(employee.getLastname());
-            updatedEmployee.setEnterprise(employee.getEnterprise());
+            updatedEmployee.setCompany(employee.getCompany());
             updatedEmployee.setPosition(employee.getPosition());
             updatedEmployee.setPhone(employee.getPhone());
             updatedEmployee.setPhoto(employee.getPhoto());
@@ -77,6 +77,17 @@ public class EmployeeController {
         } catch (JwtException e) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
         }
+    }
+    @GetMapping("/getAllusersfromthesameCompany/{company}")
+    public List<Employee> getAllusersfromthesameCompany(@PathVariable String  company) throws Exception{
+        try{
+            return employeeService.EmployeefromsameCompany(company);
+        }
+        catch (Exception e)
+        {
+            return null;
+        }
+
     }
     @GetMapping("/getVerificationCode/{email}")
     public  ResponseEntity<String > getVerificationCode(@PathVariable  String email) throws Exception {

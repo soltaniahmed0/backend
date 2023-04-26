@@ -106,4 +106,7 @@ public class EmployeeService {
         String newPassword=encodePassword(password);
         employeeRepository.changePassword(id,newPassword);
     }
+    public List<Employee> EmployeefromsameCompany(String company){
+        return employeeRepository.findByCompany(company);
+    }
 }
