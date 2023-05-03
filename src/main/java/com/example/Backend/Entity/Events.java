@@ -27,5 +27,9 @@ public class Events {
     @JoinColumn(name = "employee_id")
     private Employee employee;
     private boolean approve;
-
+    @Column(name = "Eventimg", columnDefinition="longblob")
+    private byte[] eventimg;
+    private String eventStartTime;
+    private String eventEndTime;
+    private String Location;
 }

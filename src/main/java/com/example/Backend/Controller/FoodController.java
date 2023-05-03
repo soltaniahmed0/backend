@@ -39,7 +39,6 @@ public class FoodController {
     @CrossOrigin(origins = "http://localhost:59838/")
     @PostMapping("/add")
     public void add(@RequestBody Food FoodStrings){
-
         foodService.addFood(FoodStrings);
     }
 

@@ -33,6 +33,11 @@ public class EventService {
         event.setEventName(events.getEventName());
         event.setEventDescription(events.getEventDescription());
         event.setEventDate(events.getEventDate());
+        event.setEventStartTime(events.getEventStartTime());
+        event.setEventEndTime(events.getEventEndTime());
+        event.setLocation(events.getLocation());
+        event.setApprove(events.isApprove());
+        event.setEventimg(events.getEventimg());
         eventRepository.save(event);
         return  event;
     }

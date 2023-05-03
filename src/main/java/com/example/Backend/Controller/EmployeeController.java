@@ -47,7 +47,6 @@ public class EmployeeController {
             updatedEmployee.setCompany(employee.getCompany());
             updatedEmployee.setPosition(employee.getPosition());
             updatedEmployee.setPhone(employee.getPhone());
-            updatedEmployee.setPhoto(employee.getPhoto());
             updatedEmployee.setTheme(employee.isTheme());
             updatedEmployee.setAvailability(employee.isAvailability());
             updatedEmployee = employeeService.updateEmployee(updatedEmployee);
