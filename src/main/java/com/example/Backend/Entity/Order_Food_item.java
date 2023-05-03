@@ -14,13 +14,13 @@ import java.util.List;
 @NoArgsConstructor
 @Entity
 @Table
-public class Order_Food {
+public class Order_Food_item {
     @Id
     @GeneratedValue
-    private int Order_Food_id;
+    private int Order_Food_Item_id;
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "order_id",insertable=false, updatable=false)
-    private Orders orders;
+    private FoodsOrders foodsOrders;
     @Column(name = "order_id")
     private int orders_id;
     @ManyToOne
@@ -31,17 +31,17 @@ public class Order_Food {
     @JsonIgnoreProperties("order_food1")
     private List<Garniture> garniture;
 
-    @Override
+    /*@Override
     public String toString() {
         return "Order_Food{" +
-                "Order_Food_id=" + Order_Food_id +
+                "Order_Food_id=" + Order_Food_Item_id +
                 ", orders_id=" + orders_id +
                 ", foods=" + foods +
                 ", qte=" + qte +
 
                 '}';
     }
-
+*/
     public List<Garniture> getGarniture() {
         if (garniture!=null){
             return garniture;

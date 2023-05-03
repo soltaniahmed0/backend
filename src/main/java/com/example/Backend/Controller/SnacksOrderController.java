@@ -11,13 +11,14 @@ import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
 import java.util.List;
-@RequestMapping("/Order_food_item")
+
+@RequestMapping("/snacksorders")
 @RestController
-public class OrderController {
+public class SnacksOrderController {
     private OrderFoodService orderFoodService;
     private OrderFoodItemService orderFoodItemService;
     private GarnitureService garnitureService;
-    public OrderController(OrderFoodService orderFoodService, OrderFoodItemService orderFoodItemService, GarnitureService garnitureService) {
+    public SnacksOrderController(OrderFoodService orderFoodService, OrderFoodItemService orderFoodItemService, GarnitureService garnitureService) {
         this.orderFoodService = orderFoodService;
         this.orderFoodItemService = orderFoodItemService;
         this.garnitureService=garnitureService;
