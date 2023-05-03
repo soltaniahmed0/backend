@@ -19,7 +19,7 @@ public class Garniture {
     private boolean checked;
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "Order_Food_id",insertable=false, updatable=false)
-    private Order_Food order_food1;
+    private Order_Food_item order_food1;
     @Column(name = "Order_Food_id",nullable = false)
     private int Order_Food_id;
 

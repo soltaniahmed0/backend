@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Controller
-@RequestMapping("/api/event")
+@RequestMapping("/event")
 public class EventController {
     @Autowired
     EventService eventService;

@@ -1,57 +1,52 @@
 package com.example.Backend.Services;
 
-import com.example.Backend.Entity.Orders;
-import com.example.Backend.Repository.OrderRepository;
+import com.example.Backend.Entity.SnacksOrders;
+import com.example.Backend.Repository.OrderSnackRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
+
 @Service
-public class OrderService {
-    List<Orders> Orders;
+public class OrderSnackService {
+
     @Autowired
-    private OrderRepository orderRepository;
-    public OrderService() {
-
-        Orders = new ArrayList<Orders>();
-
+    private OrderSnackRepository snacksRepository;
+    public OrderSnackService() {
 
     }
-    public Orders saveOrder(Orders o){
-        Orders res =orderRepository.save(o);
+    public SnacksOrders saveOrder(SnacksOrders o){
+        SnacksOrders res =snacksRepository.save(o);
         System.out.println(res);
         return res;
     }
-    public List<Orders> saveOrders(){
-        return orderRepository.saveAll(Orders);
+
+
+    public List<SnacksOrders> getSnacksOrders(){
+        return  snacksRepository.findAll();
+    }
+    public SnacksOrders getOrder(int id){
+        return  snacksRepository.findById(id).orElse(null);
     }
 
-    public List<Orders> getOrders(){
-        return  orderRepository.findAll();
-    }
-    public Orders getOrder(int id){
-        return  orderRepository.findById(id).orElse(null);
-    }
-
-    public Orders UpdateOrder(int id){
-        Orders existingOrder=getOrder(id);
+    public SnacksOrders UpdateOrder(int id){
+        SnacksOrders existingOrder=getOrder(id);
         existingOrder.setReady(true);
-        return orderRepository.save(existingOrder);
+        return snacksRepository.save(existingOrder);
 
     }
 
-    public List<Orders> getUserOrders(int i){
-        return orderRepository.findByEmployee_Id(i);
+    public List<SnacksOrders> getUserSnacksOrders(int i){
+        return snacksRepository.findByEmployee_Id(i);
     }
-    public List<Orders> getOrders(int i){
-        return orderRepository.findAll();
+    public List<SnacksOrders> getSnacksOrders(int i){
+        return snacksRepository.findAll();
     }
-    public List<Orders> getnotReadyOrders(){
-        return orderRepository.findByReady(false);
+    public List<SnacksOrders> getnotReadySnacksOrders(){
+        return snacksRepository.findByReady(false);
     }
-    public List<Orders> getnotReadyUserOrders(int i){
-        return orderRepository.findByEmployee_IdAndReady(i,false);
+    public List<SnacksOrders> getnotReadyUserSnacksOrders(int i){
+        return snacksRepository.findByEmployee_IdAndReady(i,false);
     }
 
 

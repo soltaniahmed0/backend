@@ -1,31 +1,24 @@
 package com.example.Backend.Services;
 
 import com.example.Backend.Entity.Order_Food_item;
-
-
+import com.example.Backend.Entity.Order_Snack_item;
 import com.example.Backend.Repository.OrderFoodItemRepository;
-
+import com.example.Backend.Repository.OrderSnackItemRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 
 @Service
-public class OrderFoodService {
+public class OrderSnackItemService {
     @Autowired
-    private OrderFoodItemRepository orderFoodItemRepository;
-    public OrderFoodService() {
+    private OrderSnackItemRepository orderSnackItemRepository;
+    public OrderSnackItemService() {
 
     }
-    public Order_Food_item saveOrderfood(Order_Food_item o){
-        return orderFoodItemRepository.save(o);
+    public Order_Snack_item saveOrdersnackItem(Order_Snack_item o){
+        return orderSnackItemRepository.save(o);
     }
-    /*public List<Order> getUserOrders(int id){
-        List<OrderFoodResult> Orders =orderFoodRepository.findByEmployeeId(id);
-        for (:
-             ) {
-            
-        }
-    }*/
+
 
 
 

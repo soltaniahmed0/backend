@@ -10,10 +10,10 @@ import org.springframework.stereotype.Service;
 
 
 @Service
-public class OrderFoodService {
+public class OrderFoodItemService {
     @Autowired
     private OrderFoodItemRepository orderFoodItemRepository;
-    public OrderFoodService() {
+    public OrderFoodItemService() {
 
     }
     public Order_Food_item saveOrderfood(Order_Food_item o){

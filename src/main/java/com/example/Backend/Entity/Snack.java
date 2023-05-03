@@ -13,9 +13,10 @@ import lombok.NoArgsConstructor;
 public class Snack {
     @Id
     @GeneratedValue
-    private int snackId;
+    private int snack_id;
     private String snackName;
-    private String img;
+    @Column(name = "img", columnDefinition="longblob")
+    private byte[] img;
     private double price;
     private int qtt;
     private String description;

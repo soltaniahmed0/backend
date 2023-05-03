@@ -14,44 +14,31 @@ import java.util.List;
 @NoArgsConstructor
 @Entity
 @Table
-public class Order_Food_item {
+public class Order_Snack_item {
     @Id
     @GeneratedValue
-    private int Order_Food_id;
+    private int order_snack_item_id;
     @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "order_id",insertable=false, updatable=false)
-    private Orders orders;
-    @Column(name = "order_id")
+    @JoinColumn(name = "order_snack_id",insertable=false, updatable=false)
+    private SnacksOrders snacksorders;
+    @Column(name = "order_snack_id")
     private int orders_id;
     @ManyToOne
-    @JoinColumn(name = "food_id")
-    private Food foods;
+    @JoinColumn(name = "snack_id")
+    private Snack snacks;
     private int  qte;
-    @OneToMany(mappedBy = "order_food1")
-    @JsonIgnoreProperties("order_food1")
-    private List<Garniture> garniture;
+
 
     @Override
     public String toString() {
-        return "Order_Food{" +
-                "Order_Food_id=" + Order_Food_id +
+        return "Order_Snack{" +
+                "Order_Snack_id=" +  order_snack_item_id +
                 ", orders_id=" + orders_id +
-                ", foods=" + foods +
+                ", snacks=" + snacks +
                 ", qte=" + qte +
 
                 '}';
     }
 
-    public List<Garniture> getGarniture() {
-        if (garniture!=null){
-            return garniture;
-        }else {
-            return new ArrayList<Garniture>();
-        }
 
-    }
-
-    public void setGarniture(List<Garniture> garniture) {
-        this.garniture = garniture;
-    }
 }

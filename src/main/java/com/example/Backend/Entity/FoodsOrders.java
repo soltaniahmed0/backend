@@ -14,23 +14,23 @@ import java.util.List;
 @NoArgsConstructor
 @Entity
 @Table
-public class Orders {
+public class FoodsOrders {
     @Id
     @GeneratedValue
-    private int order_id;
+    private int order_food_id;
     private String order_date;
     private boolean ready;
     @ManyToOne
     @JoinColumn(name = "employee_id")
     private Employee employee;
-    @OneToMany(mappedBy = "orders")
-    @JsonIgnoreProperties("orders")
+    @OneToMany(mappedBy = "foodsOrders")
+    @JsonIgnoreProperties("foodsOrders")
     private List<Order_Food_item> foodOrders;
     private LocalDate date;
     private String description;
 
 
-    public Orders(String order_date, boolean ready, Employee employee) {
+    public FoodsOrders(String order_date, boolean ready, Employee employee) {
         this.order_date = order_date;
         this.ready = ready;
         this.employee = employee;
