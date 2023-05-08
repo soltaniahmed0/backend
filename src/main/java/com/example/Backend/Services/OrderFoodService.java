@@ -1,6 +1,8 @@
 package com.example.Backend.Services;
 
 import com.example.Backend.Entity.FoodsOrders;
+import com.example.Backend.Entity.Order_Food_item;
+import com.example.Backend.Repository.OrderFoodItemRepository;
 import com.example.Backend.Repository.OrderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,6 +14,8 @@ public class OrderFoodService {
     List<FoodsOrders> FoodsOrders;
     @Autowired
     private OrderRepository orderRepository;
+    @Autowired
+    private OrderFoodItemRepository orderFoodItemRepository;
     public OrderFoodService() {
 
         FoodsOrders = new ArrayList<FoodsOrders>();
@@ -53,6 +57,12 @@ public class OrderFoodService {
     public List<FoodsOrders> getnotReadyUserOrders(int i){
         return orderRepository.findByEmployee_IdAndReady(i,false);
     }
+    public void deleteOrder(int id){
+        orderFoodItemRepository.deleteByOrdersId(id);
+        // delete the FoodsOrders record
+        orderRepository.deleteById(id);
 
+
+    }
 
 }

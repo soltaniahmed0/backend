@@ -1,7 +1,7 @@
 package com.example.Backend.Services;
 
 import com.example.Backend.Entity.Employee;
-import com.example.Backend.Entity.Events;
+import com.example.Backend.Entity.StartupEvent;
 import com.example.Backend.Repository.EmployeeRepository;
 import com.example.Backend.Repository.EventRepository;
 import jakarta.persistence.EntityNotFoundException;
@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class EventService {
@@ -16,33 +17,33 @@ public class EventService {
     EventRepository eventRepository;
     @Autowired
     EmployeeRepository employeeRepository;
-    public Events addEvent(Events events,int employeeId){
+    public StartupEvent addEvent(StartupEvent startupEvent, int employeeId){
         Employee employee = employeeRepository.findById(employeeId).orElseThrow(() ->
                 new EntityNotFoundException("Employee with ID " + employeeId + " not found"));
-        events.setEmployee(employee);
-        return eventRepository.save(events);
+        startupEvent.setEmployee(employee);
+        return eventRepository.save(startupEvent);
     }
-    public Events getEvent(int event_id){
-        Events events=eventRepository.findById(event_id).orElseThrow(() ->
+    public Optional<StartupEvent> getEvent(int event_id){
+        StartupEvent startupEvent =eventRepository.findById(event_id).orElseThrow(() ->
                 new EntityNotFoundException("Event wiht Id"+event_id+"not found"));
-        return events;
+        return Optional.ofNullable(startupEvent);
     }
-    public  Events updateEvent(Events events,int event_id){
-        Events event=eventRepository.findById(event_id).orElseThrow(() ->
+    public StartupEvent updateEvent(StartupEvent startupEvent, int event_id){
+        StartupEvent event=eventRepository.findById(event_id).orElseThrow(() ->
                 new EntityNotFoundException("Event wiht Id"+event_id+"not found"));
-        event.setEventName(events.getEventName());
-        event.setEventDescription(events.getEventDescription());
-        event.setEventDate(events.getEventDate());
-        event.setEventStartTime(events.getEventStartTime());
-        event.setEventEndTime(events.getEventEndTime());
-        event.setLocation(events.getLocation());
-        event.setApprove(events.isApprove());
-        event.setEventimg(events.getEventimg());
+        event.setEventName(startupEvent.getEventName());
+        event.setEventDescription(startupEvent.getEventDescription());
+        event.setEventDate(startupEvent.getEventDate());
+        event.setEventStartTime(startupEvent.getEventStartTime());
+        event.setEventEndTime(startupEvent.getEventEndTime());
+        event.setLocation(startupEvent.getLocation());
+        event.setApprove(startupEvent.isApprove());
+        event.setEventimg(startupEvent.getEventimg());
         eventRepository.save(event);
         return  event;
     }
-    public List<Events>getAllEvents(){
-        List<Events> events=eventRepository.findAll();
+    public List<StartupEvent>getAllEvents(){
+        List<StartupEvent> events=eventRepository.findAll();
         return events;
     }
     public String deleteEvent(int event_id){
@@ -57,8 +58,15 @@ public class EventService {
         }
     }
     public void updateEventApproval(int eventId, boolean approve) {
-        Events event = eventRepository.findById(eventId).orElseThrow(() -> new IllegalArgumentException("Invalid event id"));
+        StartupEvent event = eventRepository.findById(eventId).orElseThrow(() -> new IllegalArgumentException("Invalid event id"));
         event.setApprove(approve);
         eventRepository.save(event);
+    }
+
+
+    public List<StartupEvent> getEmployeeOnlyEvents(int id)
+    {
+        List<StartupEvent> events=eventRepository.findByEmployeeId(id);
+        return  events;
     }
 }

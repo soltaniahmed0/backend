@@ -2,7 +2,6 @@ package com.example.Backend.Entity;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import jakarta.annotation.Nullable;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -28,12 +27,9 @@ public class Employee implements UserDetails {
     @Column(unique = true)
     private String  email;
     private String firstname, lastname,  password, company, position;
-
     @Column(unique = true)
     private Integer phone;
-    @OneToMany(mappedBy = "employee")
-    @JsonIgnoreProperties("employee")
-    private List<Events> events;
+
     private boolean theme,availability;
     @Lob
     @Column(name = "photo", columnDefinition="longblob")

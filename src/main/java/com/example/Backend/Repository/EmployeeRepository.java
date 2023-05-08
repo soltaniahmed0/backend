@@ -30,4 +30,5 @@ public interface EmployeeRepository extends JpaRepository<Employee,Integer> {
     @Query("SELECT company FROM Employee GROUP BY company")
     List getAlltheCompany();
 
+
 }

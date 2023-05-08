@@ -7,15 +7,17 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "Events")
+@Table(name = "StartupEvent")
 
-public class Events {
+public class StartupEvent {
     @Id
     @GeneratedValue
     private int eventId;
@@ -32,4 +34,6 @@ public class Events {
     private String eventStartTime;
     private String eventEndTime;
     private String Location;
+
+
 }

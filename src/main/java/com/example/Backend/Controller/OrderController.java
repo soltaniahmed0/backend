@@ -63,8 +63,8 @@ public class OrderController {
         return orderFoodService.getOrders();
     }
     @CrossOrigin(origins = "http://localhost:57384")
-    @GetMapping("/orderReady")
-    public FoodsOrders ge(@RequestBody int id){
+    @PutMapping("/orderReady/{id}")
+    public FoodsOrders setOrderReady(@PathVariable int id){
         return orderFoodService.UpdateOrder(id);
     }
     /*@CrossOrigin(origins = "http://localhost:57384")
@@ -72,4 +72,8 @@ public class OrderController {
     public List<Orders> test(@RequestBody int id){
         return orderService.getUserOrders(id);
     }*/
+    @DeleteMapping("/deleteOrder/{id}")
+    public void deleteOrder(@PathVariable int id){
+       orderFoodService.deleteOrder(id);
+    }
 }
