@@ -30,7 +30,7 @@ public class JwtService {
             UserDetails userDetails
     ) {
         Date now = new Date();
-        Date expiration = new Date(now.getTime() + 1000 * 60*60*24);
+        Date expiration = new Date(now.getTime() + 1000 * 60*60*24*7);
         Timer timer = new Timer();
         timer.schedule(new TimerTask() {
             @Override
@@ -73,7 +73,7 @@ public class JwtService {
         return isExpired;
     }
 
-    private Date extractExpiration(String token) {
+    Date extractExpiration(String token) {
         return extractClaim(token,Claims::getExpiration);
 
     }
@@ -96,7 +96,7 @@ public class JwtService {
         byte[] keyBytes = Decoders.BASE64.decode(SECRET_KEY);
         return Keys.hmacShaKeyFor(keyBytes);
     }
-    private void updateTokenExpiredAndRevoked(String token) {
+    public void updateTokenExpiredAndRevoked(String token) {
         tokenRepository.setExpiredandRevokedtotrue(token);
     }
 }

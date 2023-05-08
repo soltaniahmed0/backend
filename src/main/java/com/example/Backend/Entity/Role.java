@@ -5,5 +5,6 @@ public enum Role {
     ADMIN,
     Receptionist,
     Rcashier,
-    SBcashier
+    SBcashier,
+    EventManager
 }

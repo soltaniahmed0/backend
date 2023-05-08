@@ -1,6 +1,7 @@
 package com.example.Backend.Controller;
 
-import com.example.Backend.Entity.Events;
+import com.example.Backend.Entity.StartupEvent;
+import com.example.Backend.Services.EmployeeService;
 import com.example.Backend.Services.EventService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -9,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Controller
@@ -16,20 +18,22 @@ import java.util.stream.Collectors;
 public class EventController {
     @Autowired
     EventService eventService;
+    @Autowired
+    EmployeeService employeeService;
     @PostMapping("addEvent/{employeeId}")
-    public ResponseEntity<String> addEvent(@RequestBody Events events, @PathVariable int employeeId){
+    public ResponseEntity<String> addEvent(@RequestBody StartupEvent startupEvent, @PathVariable int employeeId){
         try {
-            eventService.addEvent(events,employeeId);
+            eventService.addEvent(startupEvent,employeeId);
             return  ResponseEntity.ok("added");
         }
         catch (Exception e){
-            return  new ResponseEntity<>("Error addidng the events"+ e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+            return  new ResponseEntity<>("Error addidng the startupEvent"+ e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
     @GetMapping("GetEvent/{event_id}")
-    public  ResponseEntity<Events>getEvent(@PathVariable int event_id){
+    public ResponseEntity<Optional<StartupEvent>> getEvent(@PathVariable int event_id){
         try {
-            Events event=eventService.getEvent(event_id);
+            Optional<StartupEvent> event=eventService.getEvent(event_id);
             return ResponseEntity.ok(event);
         }
         catch (Exception e){
@@ -37,10 +41,10 @@ public class EventController {
         }
     }
     @PutMapping("updateEvent/{event_id}")
-    public ResponseEntity<?> updateEvent(@PathVariable int event_id,@RequestBody Events updatedEvent){
+    public ResponseEntity<?> updateEvent(@PathVariable int event_id,@RequestBody StartupEvent updatedEvent){
         try {
-            Events events=eventService.updateEvent(updatedEvent,event_id);
-            return ResponseEntity.ok(events);
+            StartupEvent startupEvent =eventService.updateEvent(updatedEvent,event_id);
+            return ResponseEntity.ok(startupEvent);
         }
         catch (Exception e){
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
@@ -49,10 +53,10 @@ public class EventController {
 
     }
     @GetMapping("getallEvents")
-    public ResponseEntity<List<Events>>getAllEvents(){
+    public ResponseEntity<List<StartupEvent>>getAllEvents(){
         try {
-            List<Events>eventsList=eventService.getAllEvents();
-            return ResponseEntity.ok(eventsList);
+            List<StartupEvent> startupEventList =eventService.getAllEvents();
+            return ResponseEntity.ok(startupEventList);
         }
         catch (Exception e)
         {
@@ -81,13 +85,24 @@ public class EventController {
         }
     }
     @GetMapping("getEvents")
-    public ResponseEntity<List<Events>> getEvents() {
+    public ResponseEntity<List<StartupEvent>> getEvents() {
         try {
-            List<Events> events = eventService.getAllEvents().stream()
+            List<StartupEvent> events = eventService.getAllEvents().stream()
                     .filter(event -> event.isApprove())
                     .collect(Collectors.toList());
             return ResponseEntity.ok(events);
         } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+    @GetMapping("getEmployeeEvent/{id}")
+    public ResponseEntity<List<StartupEvent>> getEventList(@PathVariable int id)
+    {
+        try {
+            List<StartupEvent> events=eventService.getEmployeeOnlyEvents(id);
+            return  ResponseEntity.ok(events);
+        }catch (Exception e)
+        {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }

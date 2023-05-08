@@ -48,8 +48,8 @@ public class SnacksOrderController {
         return orderSnackService.getSnacksOrders();
     }
     @CrossOrigin(origins = "http://localhost:57384")
-    @GetMapping("/orderReady")
-    public SnacksOrders ge(@RequestBody int id){
+    @PutMapping("/orderReady/{id}")
+    public SnacksOrders setSnackOrderReady(@PathVariable int id){
         return orderSnackService.UpdateOrder(id);
     }
     /*@CrossOrigin(origins = "http://localhost:57384")
