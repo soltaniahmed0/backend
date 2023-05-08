@@ -1,12 +1,8 @@
 package com.example.Backend.Controller;
 
-
-import com.example.Backend.Entity.Garniture;
-import com.example.Backend.Entity.Order_Food_item;
-import com.example.Backend.Entity.FoodsOrders;
-import com.example.Backend.Services.GarnitureService;
-import com.example.Backend.Services.OrderFoodItemService;
-import com.example.Backend.Services.OrderFoodService;
+import com.example.Backend.Entity.Order_Snack_item;
+import com.example.Backend.Entity.SnacksOrders;
+import com.example.Backend.Services.*;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
@@ -15,58 +11,46 @@ import java.util.List;
 @RequestMapping("/snacksorders")
 @RestController
 public class SnacksOrderController {
-    private OrderFoodService orderFoodService;
-    private OrderFoodItemService orderFoodItemService;
-    private GarnitureService garnitureService;
-    public SnacksOrderController(OrderFoodService orderFoodService, OrderFoodItemService orderFoodItemService, GarnitureService garnitureService) {
-        this.orderFoodService = orderFoodService;
-        this.orderFoodItemService = orderFoodItemService;
-        this.garnitureService=garnitureService;
+    private OrderSnackService orderSnackService;
+    private OrderSnackItemService orderSnackItemService ;
+
+    public SnacksOrderController(OrderSnackService orderSnackService,OrderSnackItemService orderSnackItemService) {
+        this.orderSnackItemService=orderSnackItemService;
+        this.orderSnackService =      orderSnackService  ;
     }
     @CrossOrigin(origins = "http://localhost:57384")
     @PostMapping("/add")
-    public FoodsOrders AddOrder(@RequestBody FoodsOrders order){
+    public SnacksOrders AddOrder(@RequestBody SnacksOrders order){
         order.setDate(LocalDate.now());
-        System.out.println(order.getDate());
-        orderFoodService.saveOrder(order);
-        System.out.println(order);
-
-        for (Order_Food_item orderfood:order.getFoodOrders())
+        orderSnackService.saveOrder(order);
+        for (Order_Snack_item ordersnack:order.getSnacksOrders())
         {
-            orderfood.setOrders_id(order.getOrder_food_id());
-            Order_Food_item orderfood1= orderFoodItemService.saveOrderfood(orderfood);
-            for (Garniture garniture:orderfood.getGarniture()){
-                //garniture.setOrder_food1(orderfood1);
-                System.out.println(orderfood1);
-                //AddOrder(garniture);
-                System.out.println(garniture.getName());
-                Addgar(new Garniture(garniture.getName(),garniture.isChecked(),orderfood1.getOrder_Food_Item_id()));
-            }
-            System.out.println(orderfood1.toString());
+            ordersnack.setOrders_id(order.getOrder_snack_id());
+            Order_Snack_item ordersnackS= orderSnackItemService.saveOrdersnackItem(ordersnack);
+            System.out.println(ordersnackS);
+
         }
         return order;
     }
 
-    public Garniture Addgar( Garniture garniture) {
-        return garnitureService.addgar(garniture);
-    }
+
 
 
     @CrossOrigin(origins = "http://localhost:57384")
     @GetMapping("/userorders")
-    public List<FoodsOrders> getUserOrders(@RequestParam int id){
-        return orderFoodService.getUserOrders(id);
+    public List<SnacksOrders> getUserOrders(@RequestParam int id){
+        return orderSnackService.getUserSnacksOrders(id);
     }
 
     @CrossOrigin(origins = "http://localhost:57384")
     @GetMapping("/getOrders")
-    public List<FoodsOrders> getOrders(){
-        return orderFoodService.getOrders();
+    public List<SnacksOrders> getOrders(){
+        return orderSnackService.getSnacksOrders();
     }
     @CrossOrigin(origins = "http://localhost:57384")
     @GetMapping("/orderReady")
-    public FoodsOrders ge(@RequestBody int id){
-        return orderFoodService.UpdateOrder(id);
+    public SnacksOrders ge(@RequestBody int id){
+        return orderSnackService.UpdateOrder(id);
     }
     /*@CrossOrigin(origins = "http://localhost:57384")
     @PutMapping("/orderUser")
