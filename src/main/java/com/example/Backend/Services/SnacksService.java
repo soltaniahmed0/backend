@@ -15,11 +15,11 @@ public class SnacksService {
     @Autowired
     private SnacksRepository snacksRepository;
 
-    public List<Snack> getsnaks() {
+    public List<Snack> getsnacks() {
         return snacksRepository.findAll();
     }
 
-    public void addsnak(Snack lost ){
+    public void addsnack(Snack lost ){
         snacksRepository.save(lost);
         }
 

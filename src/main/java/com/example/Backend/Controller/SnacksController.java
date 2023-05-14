@@ -28,7 +28,7 @@ public class SnacksController {
     @GetMapping("/getitems")
 
     public List<Snack> getItems(){
-        List<Snack> res=snacksService.getsnaks();
+        List<Snack> res=snacksService.getsnacks();
         return res;
     }
 
@@ -36,7 +36,7 @@ public class SnacksController {
     @PostMapping("/add")
     public void add(@RequestBody Snack snack ){
 
-        snacksService.addsnak(snack);
+        snacksService.addsnack(snack);
     }
 
     @CrossOrigin(origins = "http://localhost:59838/")
