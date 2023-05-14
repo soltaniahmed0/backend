@@ -17,34 +17,36 @@ import java.util.List;
 public class Company {
     @Id
     @GeneratedValue
-    private int company_id;
+    private int companyid;
     @Column(unique = true)
     private String companyName;
     @Lob
     @Column(name = "company_logo", columnDefinition="longblob")
-    private byte[] company_logo;
+    private byte[] companylogo;
 
 
-    public int getCompany_id() {
-        return company_id;
-    }
-
-    public void setCompany_id(int company_id) {
-        this.company_id = company_id;
-    }
 
     public String getCompanyName() {
         return companyName;
     }
 
-    public byte[] getCompany_logo() {
-        return company_logo;
+    public int getCompanyid() {
+        return companyid;
     }
 
-    public void setCompany_logo(byte[] company_logo) {
-        this.company_logo = company_logo;
+    public void setCompanyid(int companyid) {
+        this.companyid = companyid;
     }
 
+    public void setCompanyName(String companyName) {
+        this.companyName = companyName;
+    }
 
+    public byte[] getCompanylogo() {
+        return companylogo;
+    }
 
+    public void setCompanylogo(byte[] companylogo) {
+        this.companylogo = companylogo;
+    }
 }

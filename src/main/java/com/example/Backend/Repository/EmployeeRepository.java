@@ -1,5 +1,6 @@
 package com.example.Backend.Repository;
 
+import com.example.Backend.Entity.Company;
 import com.example.Backend.Entity.Employee;
 import jakarta.transaction.Transactional;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -29,6 +30,7 @@ public interface EmployeeRepository extends JpaRepository<Employee,Integer> {
     @Modifying
     @Query("SELECT company FROM Employee GROUP BY company")
     List getAlltheCompany();
+    List<Employee> findByCompany(Company companyId);
 
 
 }

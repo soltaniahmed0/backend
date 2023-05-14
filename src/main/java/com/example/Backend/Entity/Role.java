@@ -4,7 +4,7 @@ public enum Role {
     Employee,
     ADMIN,
     Receptionist,
-    Rcashier,
-    SBcashier,
+    Restaurantcashier,
+    SnackBarcashier,
     EventManager
 }
