@@ -31,7 +31,7 @@ public class SecurityConfiguration {
                 .authorizeHttpRequests()
 //                .requestMatchers("/api/v1/auth/register","/cat/add","/cat/update","/cat/delete","/food/add","/food/update","/food/delete")
 //                .hasAuthority("ADMIN")
-                .requestMatchers("/api/v1/auth/authenticate")
+                .requestMatchers("/api/v1/auth/authenticate","/api/v1/auth/register")
                 .permitAll()
 //                .requestMatchers("/api/Emp/resetpassword","/api/Emp/getVerificationCode/{email}")
 //                .permitAll()

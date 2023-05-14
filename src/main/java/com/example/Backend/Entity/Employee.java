@@ -26,24 +26,26 @@ public class Employee implements UserDetails {
     private int employee_id;
     @Column(unique = true)
     private String  email;
-    private String firstname, lastname,  password, company, position;
+    private String firstname, lastname,  password,  position;
     @Column(unique = true)
     private Integer phone;
 
-    private boolean theme,availability;
+    private boolean theme,availability,firstTime;
     @Lob
     @Column(name = "photo", columnDefinition="longblob")
     private byte[] photo;
-
+    @ManyToOne
+    @JoinColumn(name="company_id")
+    private Company company;
     public void setPassword(String password) {
         this.password = password;
     }
 
-    public String getCompany() {
+    public Company getCompany() {
         return company;
     }
 
-    public void setCompany(String company) {
+    public void setCompany(Company company) {
         this.company = company;
     }
 
@@ -130,13 +132,7 @@ public class Employee implements UserDetails {
         this.lastname = lastname;
     }
 
-    public String getEnterprise() {
-        return company;
-    }
 
-    public void setEnterprise(String company) {
-        this.company = company;
-    }
 
     public String getPosition() {
         return position;
@@ -188,7 +184,7 @@ public class Employee implements UserDetails {
                 ", firstname='" + firstname + '\'' +
                 ", lastname='" + lastname + '\'' +
                 ", password='" + password + '\'' +
-                ", company='" + company + '\'' +
+
                 ", position='" + position + '\'' +
                 ", phone=" + phone +
                 ", theme=" + theme +

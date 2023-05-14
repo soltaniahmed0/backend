@@ -1,6 +1,8 @@
 package com.example.Backend.Services;
 
+import com.example.Backend.Entity.Company;
 import com.example.Backend.Entity.Employee;
+import com.example.Backend.Repository.CompanyRepository;
 import com.example.Backend.Repository.EmployeeRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +19,8 @@ import java.util.Random;
 public class EmployeeService {
     @Autowired
     EmployeeRepository employeeRepository;
-
+    @Autowired
+    CompanyRepository companyRepository;
     public List<Employee> getAllEmps() {
         return employeeRepository.findAll();
     }
@@ -107,6 +110,10 @@ public class EmployeeService {
         employeeRepository.changePassword(id,newPassword);
     }
     public List<Employee> EmployeefromsameCompany(String company){
+        return employeeRepository.findByCompany(company);
+    }
+    public List<Employee> getEmployeesByCompanyId(int companyId) {
+        Company company= companyRepository.findByCompanyid(companyId);
         return employeeRepository.findByCompany(company);
     }
 }

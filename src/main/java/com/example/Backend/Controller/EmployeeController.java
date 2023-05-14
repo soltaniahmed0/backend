@@ -20,22 +20,22 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/api/Emp")
 public class EmployeeController {
-
     @Autowired
     EmployeeService employeeService;
-
-
     @GetMapping("/all")
-    public List<Employee> getEmps() {
-        System.out.println(employeeService.getAllEmps());
-        return employeeService.getAllEmps();
+    public ResponseEntity<List<Employee>> getEmps() {
+
+        return ResponseEntity.ok(employeeService.getAllEmps());
     }
     @PostMapping("/resetpassword")
     public ResponseEntity<String> resetPassword(@RequestParam("email") String email) {
         employeeService.sendPasswordByEmail(email);
         return new ResponseEntity<>("Password reset successfully", HttpStatus.OK);
     }
-
+    @GetMapping("/CompanyEmployees/{companyId}")
+    public ResponseEntity<List<Employee>> getEmployeesByCompanyId(@PathVariable int companyId) {
+        return ResponseEntity.ok(employeeService.getEmployeesByCompanyId(companyId));
+    }
     @PutMapping("/updateemp/{id}")
     public ResponseEntity<Employee> updateEmployee(@PathVariable Integer id, @RequestBody Employee employee) {
         Optional<Employee> existingEmployee = employeeService.getEmployeeById(id);
@@ -55,18 +55,14 @@ public class EmployeeController {
             return ResponseEntity.notFound().build();
         }
     }
-
-    @GetMapping("/empinfo")
+    @GetMapping("empinfo")
     public ResponseEntity<Optional<Employee>> getEmployee(@RequestHeader("Authorization") String token) {
         if (!token.startsWith("Bearer ")) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
         }
-
         String jwt = token.substring(7);
-
         try {
             String SECRET_KEY = "28472B4B6250655368566D5971337336763979244226452948404D635166546A";
-
             byte[] keyBytes = Decoders.BASE64.decode(SECRET_KEY);
             Jws<Claims> claims = Jwts.parserBuilder().setSigningKey(keyBytes).build().parseClaimsJws(jwt);
 

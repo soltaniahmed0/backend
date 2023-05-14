@@ -41,8 +41,6 @@ public class EventGuestController {
             @RequestParam boolean going) {
         Optional<StartupEvent> startupEventOptional=eventService.getEvent(event_id);
         Optional<Employee> optionalEmployee=employeeService.getEmployeeById(emp_id);
-
-
         if (startupEventOptional.isPresent() && optionalEmployee.isPresent()) {
             StartupEvent event = startupEventOptional.get();
             Employee employee = optionalEmployee.get();
@@ -57,12 +55,12 @@ public class EventGuestController {
             return ResponseEntity.notFound().build();
         }
     }
-    @GetMapping("/eventGuests")
+    @GetMapping("eventGuests")
     public ResponseEntity<List<EventGuest>> getAllEventGuests() {
 
         return ResponseEntity.ok(eventGuestRepository.findAll());
     }
-    @GetMapping("/getThisEvent/{event_id}/{emp_id}")
+    @GetMapping("getThisEvent/{event_id}/{emp_id}")
     public ResponseEntity<Optional<EventGuest>> getthisEvent(@PathVariable int event_id,
                                                              @PathVariable int emp_id)
     {       Optional<StartupEvent> startupEventOptional=eventService.getEvent(event_id);
@@ -72,10 +70,11 @@ public class EventGuestController {
         Optional<EventGuest> optionalGuest = eventGuestService.findEventandEmployee(event, employee);
         return ResponseEntity.ok(optionalGuest);
     }
-    @PutMapping("UpdateGuestEventStatus/{id}")
-    public ResponseEntity<EventGuest>updateEvent(@PathVariable Integer id,@RequestParam boolean interested,@RequestParam boolean going)
+    @PutMapping("UpdateGuestEventStatus/{id}/{interested}/{going}")
+    public ResponseEntity<EventGuest>updateEvent(@PathVariable Integer id,@PathVariable boolean interested,@PathVariable boolean going)
     {
 
         return ResponseEntity.ok(eventGuestService.EventGuestupdate(id, interested, going));
     }
+
 }
