@@ -19,7 +19,13 @@ public class Room {
     @Column(name = "img", columnDefinition="longblob")
     private byte[] img;
     private int capacity;
-    private String purpose;
+    private String type;
+    private boolean tv;
+    private boolean wifi;
+    private boolean air_conditioner;
+    private boolean heater;
+    private boolean soundproof_room;
+    private boolean video_projector;
 
 }
 

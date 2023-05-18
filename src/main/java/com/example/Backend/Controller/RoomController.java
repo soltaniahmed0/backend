@@ -33,7 +33,7 @@ public class RoomController {
     @CrossOrigin(origins = "http://localhost:59838/")
     @PostMapping("/add")
     public void add(@RequestBody Room room ){
-        System.out.println(room.getPurpose());
+        System.out.println(room.getType());
         roomService.addroom(room);
     }
 
