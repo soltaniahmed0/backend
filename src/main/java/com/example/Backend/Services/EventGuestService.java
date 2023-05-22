@@ -7,6 +7,7 @@ import com.example.Backend.Entity.StartupEvent;
 import com.example.Backend.Repository.EventGuestRepository;
 import com.example.Backend.Repository.EventRepository;
 import jakarta.persistence.EntityNotFoundException;
+import jakarta.transaction.Transactional;
 import org.hibernate.sql.ast.tree.expression.Star;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -49,6 +50,25 @@ public class EventGuestService {
             return savedEventGuest;
         } else {
             throw new EntityNotFoundException("EventGuest not found with ID: " + eventGuestid);
+        }
+    }
+    public List<Employee> getEmployeesByEventAndInterestedOrGoing(StartupEvent event) {
+        return eventGuestRepository.findEmployeesByEventAndInterestedOrGoing(event);
+    }
+    @Transactional
+    public void deleteEmployeesByEvent(StartupEvent event) {
+        eventGuestRepository.deleteByEvent(event);
+    }
+    public  List<Employee> GetGuestEvent(Integer id)
+    {
+        Optional<EventGuest>optionalEventGuest=eventGuestRepository.findById(id);
+        if(optionalEventGuest.isPresent()){
+            EventGuest eventGuest=optionalEventGuest.get();
+            List<Employee> guests=eventGuestRepository.getGuest(eventGuest.getId());
+            return guests;
+        }
+        else {
+            throw new EntityNotFoundException("No EventGuest with Id"+id);
         }
     }
 

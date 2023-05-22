@@ -19,6 +19,7 @@ import java.util.*;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @Table(name = "Employee")
 public class Employee implements UserDetails {
     @Id

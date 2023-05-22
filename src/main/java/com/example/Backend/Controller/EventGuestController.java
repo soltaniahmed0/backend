@@ -55,6 +55,43 @@ public class EventGuestController {
             return ResponseEntity.notFound().build();
         }
     }
+    @GetMapping("/Guest/{eventId}")
+    public ResponseEntity<?> getEmployeesByEventAndInterestedOrGoing(@PathVariable Integer eventId) {
+        Optional<StartupEvent> event =eventRepository.findById(eventId);
+        if(event.isPresent())
+        {
+            StartupEvent startupEvent=event.get();
+            return ResponseEntity.ok(eventGuestService.getEmployeesByEventAndInterestedOrGoing(startupEvent));
+        }
+        else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+    @DeleteMapping("/deleteallGuest/{eventId}")
+    public ResponseEntity<String> deleteEmployeesByEvent(@PathVariable Integer eventId) {
+        Optional<StartupEvent> event =eventRepository.findById(eventId);
+        if(event.isPresent()){
+            StartupEvent startupEvent=event.get();
+
+            eventGuestService.deleteEmployeesByEvent(startupEvent);
+            return ResponseEntity.ok("Employees deleted successfully");
+
+        }
+        else {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+
+    }
+    @GetMapping("Guests/{id}")
+    public ResponseEntity<?>getGuests(@PathVariable Integer id){
+        try{
+            return ResponseEntity.ok(eventGuestService.GetGuestEvent(id));
+        }
+        catch (Exception e)
+        {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
     @GetMapping("eventGuests")
     public ResponseEntity<List<EventGuest>> getAllEventGuests() {
 

@@ -34,6 +34,7 @@ public class StartupEvent {
     private String eventStartTime;
     private String eventEndTime;
     private String Location;
+    private String Host;
 
 
 }
