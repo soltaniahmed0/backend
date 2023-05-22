@@ -67,11 +67,7 @@ public class OrderController {
     public FoodsOrders setOrderReady(@PathVariable int id){
         return orderFoodService.UpdateOrder(id);
     }
-    /*@CrossOrigin(origins = "http://localhost:57384")
-    @PutMapping("/orderUser")
-    public List<Orders> test(@RequestBody int id){
-        return orderService.getUserOrders(id);
-    }*/
+
     @DeleteMapping("/deleteOrder/{id}")
     public void deleteOrder(@PathVariable int id){
        orderFoodService.deleteOrder(id);
