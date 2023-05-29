@@ -31,9 +31,9 @@ public class FoodService {
     }
 
     public void addFood(Food f ){
-        Food food=new Food(f.getFoodName(),f.getImg(),f.getPrice(),f.getCat(),f.available,f.description);
+        Food food=new Food(f.getFoodName(),f.getImg(),f.getPrice(),f.getCat(),f.available,f.getDescription());
 
-
+        System.out.println(food.description);
         foodRepository.save(food);
         //foodList.add(new Food(n.getFoodID(),n.getFoodName(),n.getImg(),n.getPrice(),_category(n.getCat()),n.available));
     }

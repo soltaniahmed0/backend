@@ -33,6 +33,4 @@ public class AuthenticationController {
     System.out.println(authentication.getAuthorities());
     return x;
   }
-
-
 }

@@ -12,7 +12,8 @@ import java.util.Optional;
 
 @Service
 public class AppointmentService {
-
+    @Autowired
+    private  RoomRepository roomRepository;
     @Autowired
     private AppointmentRepository appointmentRepository;
 
@@ -27,7 +28,16 @@ public class AppointmentService {
     public Appointment getappointment(int id) {
         return  appointmentRepository.findById(id).orElse(null);
     }
-
+    public List<Appointment> getAppointmentsByRoomId(int roomId) {
+        Optional<Room> findroom=roomRepository.findById(roomId);
+        if(findroom.isPresent()){
+            Room room=findroom.get();
+            return appointmentRepository.findByRoom(room);
+        }
+        else{
+            throw new IllegalArgumentException("room with id " + roomRepository+ " not found");
+        }
+    }
     public Appointment updateAppointment(Appointment appointment) {
         Optional<Appointment> appointmentOptional = appointmentRepository.findById(appointment.getId());
         if (appointmentOptional.isPresent()) {
