@@ -5,8 +5,10 @@ import com.example.Backend.Entity.Garniture;
 import com.example.Backend.Entity.Order_Food_item;
 import com.example.Backend.Entity.FoodsOrders;
 import com.example.Backend.Services.GarnitureService;
+import com.example.Backend.Services.NotificationService;
 import com.example.Backend.Services.OrderFoodItemService;
 import com.example.Backend.Services.OrderFoodService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
@@ -14,6 +16,8 @@ import java.util.List;
 @RequestMapping("/Order_food_item")
 @RestController
 public class OrderController {
+    @Autowired
+    private NotificationService notificationService;
     private OrderFoodService orderFoodService;
     private OrderFoodItemService orderFoodItemService;
     private GarnitureService garnitureService;
@@ -65,13 +69,10 @@ public class OrderController {
     @CrossOrigin(origins = "http://localhost:57384")
     @PutMapping("/orderReady/{id}")
     public FoodsOrders setOrderReady(@PathVariable int id){
+        notificationService.sendNotification("Order ready", String.valueOf(orderFoodService.getOrder(id).getOrder_food_id()));
         return orderFoodService.UpdateOrder(id);
     }
-    /*@CrossOrigin(origins = "http://localhost:57384")
-    @PutMapping("/orderUser")
-    public List<Orders> test(@RequestBody int id){
-        return orderService.getUserOrders(id);
-    }*/
+
     @DeleteMapping("/deleteOrder/{id}")
     public void deleteOrder(@PathVariable int id){
        orderFoodService.deleteOrder(id);

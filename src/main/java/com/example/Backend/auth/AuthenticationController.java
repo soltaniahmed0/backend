@@ -1,7 +1,12 @@
 package com.example.Backend.auth;
 
+import com.example.Backend.Services.NotificationService;
+import com.example.Backend.config.FirebaseConfig;
 import lombok.RequiredArgsConstructor;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
@@ -10,6 +15,9 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api/v1/auth")
 @RequiredArgsConstructor
 public class AuthenticationController {
+
+  @Autowired
+  private NotificationService notificationService;
 
   private final AuthenticationService service;
 
@@ -24,6 +32,7 @@ public class AuthenticationController {
   public ResponseEntity<AuthenticationResponse> authenticate(
       @RequestBody AuthenticationRequest request
   ) {
+    notificationService.sendNotification("title", "body");
     return ResponseEntity.ok(service.authenticate(request));
   }
   @GetMapping("/exemple")
