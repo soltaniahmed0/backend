@@ -5,6 +5,7 @@ import com.example.Backend.Entity.Category;
 import com.example.Backend.Entity.LostAndFoundItem;
 import com.example.Backend.Services.CategoryService;
 import com.example.Backend.Services.LostAndFoundService;
+import com.example.Backend.Services.NotificationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,6 +14,8 @@ import java.util.List;
 @RequestMapping("/lostandfound")
 @RestController
 public class LostAndFoundController {
+    @Autowired
+    private NotificationService notificationService;
     private LostAndFoundService lostAndFoundService;
     @Autowired
     public LostAndFoundController(LostAndFoundService lostAndFoundService){
@@ -36,8 +39,8 @@ public class LostAndFoundController {
     @CrossOrigin(origins = "http://localhost:59838/")
     @PostMapping("/add")
     public void add(@RequestBody LostAndFoundItem lostAndFoundItem){
-
         lostAndFoundService.addlost(lostAndFoundItem);
+        notificationService.sendNotification("lostAndFound",lostAndFoundItem.getTitle());
     }
 
     @CrossOrigin(origins = "http://localhost:59838/")
