@@ -3,6 +3,7 @@ package com.example.Backend.Controller;
 import com.example.Backend.Entity.Order_Snack_item;
 import com.example.Backend.Entity.SnacksOrders;
 import com.example.Backend.Services.*;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
@@ -11,6 +12,8 @@ import java.util.List;
 @RequestMapping("/snacksorders")
 @RestController
 public class SnacksOrderController {
+    @Autowired
+    private NotificationService notificationService;
     private OrderSnackService orderSnackService;
     private OrderSnackItemService orderSnackItemService ;
 
@@ -50,6 +53,8 @@ public class SnacksOrderController {
     @CrossOrigin(origins = "http://localhost:57384")
     @PutMapping("/orderReady/{id}")
     public SnacksOrders setSnackOrderReady(@PathVariable int id){
+        notificationService.sendNotification("Order ready", String.valueOf(orderSnackService.getOrder(id)));
+
         return orderSnackService.UpdateOrder(id);
     }
     /*@CrossOrigin(origins = "http://localhost:57384")

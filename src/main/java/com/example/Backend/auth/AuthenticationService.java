@@ -84,6 +84,7 @@ public class AuthenticationService {
                         request.getPassword()
                 )
         );
+        /////config phone token
         var user = repository.findByEmail(request.getEmail())
                 .orElseThrow();
         List<Token> token = tokenRepository.findAllValidTokenByUser(user.getId());

@@ -2,6 +2,7 @@ package com.example.Backend.Controller;
 
 import com.example.Backend.Entity.Appointment;
 import com.example.Backend.Services.AppointmentService;
+import com.example.Backend.Services.NotificationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -11,6 +12,8 @@ import java.util.List;
 @RestController
 public class AppointmentController {
     private AppointmentService appointmentService;
+    @Autowired
+    private NotificationService notificationService;
     @Autowired
     public AppointmentController(AppointmentService appointmentService){
         this.appointmentService=appointmentService;
@@ -38,7 +41,15 @@ public class AppointmentController {
     @CrossOrigin(origins = "http://localhost:59838/")
     @PutMapping("/update")
     public void update(@RequestBody Appointment appointment ){
+        appointmentService.updateAppointment(appointment);
 
+    }
+
+    @CrossOrigin(origins = "http://localhost:59838/")
+    @PutMapping("/Approve")
+    public void Approve(@RequestBody Appointment appointment ){
+
+        notificationService.sendNotification("Reservation ", appointment.getRoom().getRoom_name()+" : "+appointment.getSubject());
         appointmentService.updateAppointment(appointment);
 
     }

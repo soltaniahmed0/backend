@@ -3,6 +3,7 @@ package com.example.Backend.Controller;
 import com.example.Backend.Entity.StartupEvent;
 import com.example.Backend.Services.EmployeeService;
 import com.example.Backend.Services.EventService;
+import com.example.Backend.Services.NotificationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,6 +17,8 @@ import java.util.stream.Collectors;
 @Controller
 @RequestMapping("/event")
 public class EventController {
+    @Autowired
+    private NotificationService notificationService;
     @Autowired
     EventService eventService;
     @Autowired
@@ -78,6 +81,8 @@ public class EventController {
     public ResponseEntity<Void> updateEventApproval(@PathVariable int eventId, @RequestParam boolean approve) {
         try {
             eventService.updateEventApproval(eventId, approve);
+            notificationService.sendNotificationToAll("Eventalll", eventService.getEvent(eventId).get().getEventName());
+            notificationService.sendNotification("Event Approved", eventService.getEvent(eventId).get().getEventName());
             return ResponseEntity.noContent().build();
         } catch (Exception e) {
             return ResponseEntity.notFound().build();
