@@ -14,7 +14,7 @@ public class NotificationService {
     public void sendNotification(String title, String body) {
         Message message = Message.builder()
                 .setNotification(Notification.builder().setTitle(title).setBody(body).setImage("https://via.placeholder.com/500x500").build())
-                .setToken("eA2-hj38QmynX3rseHW8yC:APA91bFwTAQtpDVF-U7WfNuEiHZeLyZYcm-OD32QbLkpvqbyp0Ev0wtbIcfcgIWDzg3uMgTIbmdF6On64K5rSQ7NevBM-QsO6cJTpLDwx6Qc1BHkVqOM9mIu6dnktz-QjnsZ646hP3fz")
+                .setToken("cCDIlaGoQC2XCzARCgWOyV:APA91bFhaVgwv16Qn1GMG6Nd9cnUC0vWyRK2zmfulLhkUdhlYKrrm09aVsLoFFuXfzrdrZoCnURZcra3hiIenK3aWXPIRSDKFBH0ymMV7KQgU1QuSDiYCnkbwTU8xoPal2B2a9QDdO2b")
                 .build();
 
 
