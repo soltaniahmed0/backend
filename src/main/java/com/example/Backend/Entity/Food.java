@@ -25,7 +25,7 @@ public class Food {
     @ManyToOne
     @JoinColumn(name = "cat_id")
     Category cat;
-    public String description="";
+    public String description;
 
 
 
@@ -35,10 +35,8 @@ public class Food {
         this.img = img;
         this.price = price;
         this.cat=cat;
-        this.available = available;
+        this.description = description;
         this.available=available;
-
-
     }
 
     @Override

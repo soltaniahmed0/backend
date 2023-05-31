@@ -50,6 +50,10 @@ public class AuthenticationService {
                 .phone(request.getPhone())
                 .photo(request.getPhoto().getBytes())
                 .firstTime(true)
+                .DeviceToken("")
+                .Facebook("")
+                .Linkedin("")
+                .Instagram("")
                 .build();
         var savedUser = repository.save(user);
         var jwtToken = jwtService.generateToken(user);
@@ -67,7 +71,7 @@ public class AuthenticationService {
         javaMailSender.send(message);
     }
     private String generateNewPassword() {
-        String allowedChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()_-+=[]{}<>,.?/\\|";
+        String allowedChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789\\|";
         Random random = new Random();
         StringBuilder password = new StringBuilder();
         for (int i = 0; i < 10; i++) {
@@ -84,8 +88,11 @@ public class AuthenticationService {
                         request.getPassword()
                 )
         );
+
         var user = repository.findByEmail(request.getEmail())
                 .orElseThrow();
+        user.setDeviceToken(request.getDeviceToken());
+        repository.save(user);
         List<Token> token = tokenRepository.findAllValidTokenByUser(user.getId());
         var jwtToken = "";
         if (token.isEmpty()) {

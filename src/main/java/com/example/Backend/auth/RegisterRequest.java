@@ -26,4 +26,5 @@ public class RegisterRequest {
   private Role role;
   private String photo;
   private Boolean firstime;
+
 }

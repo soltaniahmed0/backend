@@ -27,7 +27,7 @@ public class Employee implements UserDetails {
     private int employee_id;
     @Column(unique = true)
     private String  email;
-    private String firstname, lastname,  password,  position,DeviceTocken;
+    private String firstname, lastname,  password,  position,DeviceToken,Instagram,Linkedin,Facebook;
     @Column(unique = true)
     private Integer phone;
 

@@ -3,6 +3,7 @@ package com.example.Backend.Controller;
 import com.example.Backend.Entity.Appointment;
 import com.example.Backend.Services.AppointmentService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -20,7 +21,11 @@ public class AppointmentController {
     public Appointment getItem(@RequestParam int id){
          return appointmentService.getappointment(id);
     }
-
+    @CrossOrigin(origins = "http://localhost:57384")
+    @GetMapping("/roomappointments/{roomId}")
+    public List<Appointment> getAppointmentsByRoomId(@PathVariable int roomId) {
+        return appointmentService.getAppointmentsByRoomId(roomId);
+    }
     @CrossOrigin(origins = "http://localhost:59838/")
     @GetMapping("/getitems")
 

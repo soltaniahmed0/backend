@@ -45,7 +45,7 @@ public class OrderController {
                 System.out.println(garniture.getName());
                 Addgar(new Garniture(garniture.getName(),garniture.isChecked(),orderfood1.getOrder_Food_Item_id()));
             }
-            System.out.println(orderfood1.toString());
+
         }
         return order;
     }

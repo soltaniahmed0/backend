@@ -46,7 +46,7 @@ public class EmployeeService {
             String newPassword = generateNewPassword();
             employee.setPassword(encodePassword(newPassword));
             employeeRepository.save(employee);
-            // Send an email with the new password
+
             sendEmail(employee.getEmail(), "Your new password", "Your new password is: " + newPassword);
         }
     }
@@ -79,7 +79,7 @@ public class EmployeeService {
 
     }
     private String generateNewPassword() {
-        String allowedChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()_-+=[]{}<>,.?/\\|";
+        String allowedChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789\\|";
         Random random = new Random();
         StringBuilder password = new StringBuilder();
         for (int i = 0; i < 10; i++) {
