@@ -32,7 +32,7 @@ public class AuthenticationController {
   public ResponseEntity<AuthenticationResponse> authenticate(
       @RequestBody AuthenticationRequest request
   ) {
-    notificationService.sendNotification("title", "body");
+    //notificationService.sendNotification("title", "body");
     return ResponseEntity.ok(service.authenticate(request));
   }
   @GetMapping("/exemple")
@@ -42,6 +42,4 @@ public class AuthenticationController {
     System.out.println(authentication.getAuthorities());
     return x;
   }
-
-
 }

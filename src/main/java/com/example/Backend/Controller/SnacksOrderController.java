@@ -30,8 +30,6 @@ public class SnacksOrderController {
         {
             ordersnack.setOrders_id(order.getOrder_snack_id());
             Order_Snack_item ordersnackS= orderSnackItemService.saveOrdersnackItem(ordersnack);
-            System.out.println(ordersnackS);
-
         }
         return order;
     }
