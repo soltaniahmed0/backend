@@ -29,6 +29,11 @@ public class AppointmentController {
     public List<Appointment> getAppointmentsByRoomId(@PathVariable int roomId) {
         return appointmentService.getAppointmentsByRoomId(roomId);
     }
+    @GetMapping("/test")
+
+    public String test(){
+        return "test";
+    }
     @CrossOrigin(origins = "http://localhost:59838/")
     @GetMapping("/getitems")
 

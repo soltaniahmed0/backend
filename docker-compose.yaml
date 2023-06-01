@@ -1,0 +1,22 @@
+version: '3'
+services:
+  mysql:
+    image: image-mysql-ahmed:1.0.0
+    ports:
+      - 3306:3306
+    environment:
+      - MYSQL_ROOT_PASSWORD=ahmedsoltani
+      - MYSQL_DATABASE=pfe
+
+  spring:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - 8081:8081
+    depends_on:
+      - mysql
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:mysql://mysql:3306/pfe?useSSL=false
+      - SPRING_DATASOURCE_USERNAME=root
+      - SPRING_DATASOURCE_PASSWORD=ahmedsoltani
