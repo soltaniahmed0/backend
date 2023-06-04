@@ -7,6 +7,8 @@ import com.example.Backend.Repository.RoomRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.sql.Timestamp;
+import java.util.Calendar;
 import java.util.List;
 import java.util.Optional;
 
@@ -37,6 +39,14 @@ public class AppointmentService {
         else{
             throw new IllegalArgumentException("room with id " + roomRepository+ " not found");
         }
+    }
+    public List<Appointment> getCurrentlyHappeningAppointmentsForUser(int userId) {
+        Timestamp currentTimestamp = new Timestamp(System.currentTimeMillis());
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeInMillis(currentTimestamp.getTime());
+        calendar.add(Calendar.HOUR, +1);
+        Timestamp updatedTimestamp = new Timestamp(calendar.getTimeInMillis());
+        return appointmentRepository.findByEmployeeIdAndStartTimeBeforeAndEndTimeAfter(userId, updatedTimestamp, updatedTimestamp);
     }
     public Appointment updateAppointment(Appointment appointment) {
         Optional<Appointment> appointmentOptional = appointmentRepository.findById(appointment.getId());

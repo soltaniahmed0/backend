@@ -49,7 +49,11 @@ public class EmployeeController {
             updatedEmployee.setPhone(employee.getPhone());
             updatedEmployee.setTheme(employee.isTheme());
             updatedEmployee.setAvailability(employee.isAvailability());
+            updatedEmployee.setFacebook(employee.getFacebook());
+            updatedEmployee.setInstagram(employee.getInstagram());
+            updatedEmployee.setLinkedin(employee.getLinkedin());
             updatedEmployee = employeeService.updateEmployee(updatedEmployee);
+
             return ResponseEntity.ok(updatedEmployee);
         } else {
             return ResponseEntity.notFound().build();

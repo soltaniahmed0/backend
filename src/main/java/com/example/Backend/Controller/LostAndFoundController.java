@@ -32,7 +32,7 @@ public class LostAndFoundController {
 
     public List<LostAndFoundItem> getItems(){
         List<LostAndFoundItem> res=lostAndFoundService.getlost();
-        System.out.println(res.toString());
+
         return res;
     }
 

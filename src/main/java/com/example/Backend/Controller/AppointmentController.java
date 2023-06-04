@@ -64,5 +64,10 @@ public class AppointmentController {
         appointmentService.deleteappointment(id);
 
     }
+    @GetMapping("/currentlyAppoinment/{userId}")
+    public ResponseEntity<List<Appointment>> getCurrentlyHappeningAppointments(@PathVariable int userId) {
+        List<Appointment> currentlyHappeningAppointments = appointmentService.getCurrentlyHappeningAppointmentsForUser(userId);
+        return ResponseEntity.ok(currentlyHappeningAppointments);
+    }
 
 }
