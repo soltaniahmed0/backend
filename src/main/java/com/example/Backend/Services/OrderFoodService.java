@@ -7,6 +7,8 @@ import com.example.Backend.Repository.OrderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
 @Service
@@ -58,8 +60,13 @@ public class OrderFoodService {
         return orderRepository.findByEmployee_IdAndReady(i,false);
     }
     public void deleteOrder(int id){
-        orderFoodItemRepository.deleteByOrdersId(id);
-        // delete the FoodsOrders record
+        try {
+            orderFoodItemRepository.deleteByOrdersId(id);
+        }
+        catch (Exception e){
+            System.out.println("error");
+        }
+
         orderRepository.deleteById(id);
 
 

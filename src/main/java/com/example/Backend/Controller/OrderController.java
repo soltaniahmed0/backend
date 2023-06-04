@@ -30,9 +30,9 @@ public class OrderController {
     @PostMapping("/add")
     public FoodsOrders AddOrder(@RequestBody FoodsOrders order){
         order.setDate(LocalDate.now());
-        System.out.println(order.getDate());
+
         orderFoodService.saveOrder(order);
-        System.out.println(order);
+
 
         for (Order_Food_item orderfood:order.getFoodOrders())
         {
@@ -40,9 +40,9 @@ public class OrderController {
             Order_Food_item orderfood1= orderFoodItemService.saveOrderfood(orderfood);
             for (Garniture garniture:orderfood.getGarniture()){
                 //garniture.setOrder_food1(orderfood1);
-                System.out.println(orderfood1);
+
                 //AddOrder(garniture);
-                System.out.println(garniture.getName());
+
                 Addgar(new Garniture(garniture.getName(),garniture.isChecked(),orderfood1.getOrder_Food_Item_id()));
             }
 
@@ -75,6 +75,7 @@ public class OrderController {
 
     @DeleteMapping("/deleteOrder/{id}")
     public void deleteOrder(@PathVariable int id){
+
        orderFoodService.deleteOrder(id);
     }
 }

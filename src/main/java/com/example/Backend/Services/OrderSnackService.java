@@ -17,7 +17,7 @@ public class OrderSnackService {
     }
     public SnacksOrders saveOrder(SnacksOrders o){
         SnacksOrders res =snacksRepository.save(o);
-        System.out.println(res);
+
         return res;
     }
 

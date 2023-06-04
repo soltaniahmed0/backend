@@ -26,7 +26,7 @@ public class CategoryController {
 
     public List<Category> getcats(){
         List<Category> res=categoryService.getCategorys();
-        System.out.println(res.toString());
+
         return res;
     }
 

@@ -52,8 +52,6 @@ public class JwtService {
                 .setExpiration(expiration)
                 .signWith(getSignInKey(), SignatureAlgorithm.HS256)
                 .compact();
-
-
     }
 
     public String generateToken(UserDetails userDetails) {
@@ -65,7 +63,6 @@ public class JwtService {
     }
 
     public boolean isTokenExpired(String token) {
-
         boolean isExpired = extractExpiration(token).before(new Date());
         if (isExpired) {
             updateTokenExpiredAndRevoked(token);
@@ -75,7 +72,6 @@ public class JwtService {
 
     Date extractExpiration(String token) {
         return extractClaim(token,Claims::getExpiration);
-
     }
 
     public <T> T extractClaim(String token, Function<Claims, T> claimsResolver) {

@@ -28,7 +28,7 @@ public class LostAndFoundService {
     }
 
     public LostAndFoundItem update(LostAndFoundItem lost) {
-        System.out.println(lost.getItem_id());
+
         LostAndFoundItem existinglost=getlost(lost.getItem_id());
         existinglost.setOwner(lost.getOwner());
 
