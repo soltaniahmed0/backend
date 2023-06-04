@@ -15,8 +15,11 @@ public interface MessagingChannelRepository extends JpaRepository<Messaging_chan
 
     @Query("SELECT c FROM Messaging_chanel c WHERE c.user.employee_id = :userId OR c.user1.employee_id = :userId")
     List<Messaging_chanel> findByUserIdOrUser1Id(@Param("userId") Long userId);
-    @Query("SELECT c FROM Messaging_chanel c WHERE c.user.employee_id = :userId OR c.user1.employee_id = :userId")
-    List<Messaging_chanel> fi(@Param("userId") Long userId);
+    @Query("SELECT c FROM Messaging_chanel c WHERE  c.channel_id = :Channel_id")
+    Messaging_chanel findByChannel_id(@Param("Channel_id") Long Channel_id);
+
+
+    //Messaging_chanel findByChannel_id(Long Channel_id);
 
 
 }

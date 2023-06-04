@@ -1,10 +1,7 @@
 package com.example.Backend.Services;
 
 
-import com.example.Backend.Entity.Employee;
-import com.example.Backend.Entity.MessageData;
-import com.example.Backend.Entity.Messaging_chanel;
-import com.example.Backend.Entity.Messaging_chanelDTO;
+import com.example.Backend.Entity.*;
 import com.example.Backend.Repository.MessagingChannelRepository;
 import com.example.Backend.Repository.MessagingDataRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,11 +31,19 @@ public class MessagingService {
     public List<Messaging_chanel> getMessagingChannels() {
         return messagingChannelRepository.findAll();
     }
+    public Messaging_chanel GetChannelById(Long id) {
+        return messagingChannelRepository.findByChannel_id(id);
+    }
 
     public void addChannel(Messaging_chanel messaging_chanel){
         messagingChannelRepository.save(messaging_chanel);
         }
-/*
+    public void SendMessage(MessageData messageData){
+        messagingDataRepository.save(messageData);
+    }
+
+
+        /*
     public Appointment getappointment(int id) {
         return  appointmentRepository.findById(id).orElse(null);
     }

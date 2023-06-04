@@ -1,5 +1,7 @@
 package com.example.Backend.Controller;
 
+import com.example.Backend.Entity.MessageData;
+import com.example.Backend.Entity.MessageDataDTO;
 import com.example.Backend.Entity.Messaging_chanel;
 import com.example.Backend.Entity.Messaging_chanelDTO;
 import com.example.Backend.Services.MessagingService;
@@ -29,6 +31,7 @@ public class MessagingController {
     public List<Messaging_chanel> getChannels(){
         return messagingService.getMessagingChannels();
     }
+
     /*@CrossOrigin(origins = "http://localhost:57384")
     @GetMapping("/roomappointments/{roomId}")
     public List<Appointment> getAppointmentsByRoomId(@PathVariable int roomId) {
@@ -41,9 +44,16 @@ public class MessagingController {
         List<Appointment> res=appointmentService.getappointments();
         return res;
     }*/
+    @CrossOrigin(origins = "http://localhost:59838/")
+    @PostMapping("/SendMessage")
+    public void SendMessage(@RequestBody MessageDataDTO messageDataDTO){
+
+        MessageData msg = new MessageData(messageDataDTO.getSender(),messageDataDTO.getMessage(),messageDataDTO.getMessageDate(),messagingService.GetChannelById(messageDataDTO.getChannel()));
+        messagingService.SendMessage(msg);
+    }
 
     @CrossOrigin(origins = "http://localhost:59838/")
-    @PostMapping("/add")
+    @PostMapping("/AddChannel")
     public void add(@RequestBody Messaging_chanel messaging_chanel){
         messagingService.addChannel(messaging_chanel);
     }

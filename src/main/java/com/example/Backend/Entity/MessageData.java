@@ -28,6 +28,12 @@ public class MessageData {
     @JoinColumn(name = "channel_id")
     private Messaging_chanel channel;
 
+    public MessageData(Employee sender, String message, LocalDateTime messageDate, Messaging_chanel channel) {
+        this.sender = sender;
+        this.message = message;
+        this.messageDate = messageDate;
+        this.channel = channel;
+    }
 
     public static List<MessageDataDTO> toDTOList(List<MessageData> entities) {
         List<MessageDataDTO> dtos = new ArrayList<>();
