@@ -51,9 +51,10 @@ public class SnacksOrderController {
     @CrossOrigin(origins = "http://localhost:57384")
     @PutMapping("/orderReady/{id}")
     public SnacksOrders setSnackOrderReady(@PathVariable int id){
-        notificationService.sendNotification("Order ready", String.valueOf(orderSnackService.getOrder(id)));
+        SnacksOrders res=orderSnackService.UpdateOrder(id);
+        notificationService.sendNotification("Order ready", String.valueOf(orderSnackService.getOrder(id)),res.getEmployee().getDeviceToken());
 
-        return orderSnackService.UpdateOrder(id);
+        return res;
     }
     /*@CrossOrigin(origins = "http://localhost:57384")
     @PutMapping("/orderUser")

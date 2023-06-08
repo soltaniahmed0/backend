@@ -1,10 +1,8 @@
 package com.example.Backend.Controller;
 
-import com.example.Backend.Entity.MessageData;
-import com.example.Backend.Entity.MessageDataDTO;
-import com.example.Backend.Entity.Messaging_chanel;
-import com.example.Backend.Entity.Messaging_chanelDTO;
+import com.example.Backend.Entity.*;
 import com.example.Backend.Services.MessagingService;
+import com.example.Backend.Services.NotificationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,6 +12,8 @@ import java.util.List;
 @RequestMapping("/Messaging")
 @RestController
 public class MessagingController {
+    @Autowired
+    private NotificationService notificationService;
 
     @Autowired
     private MessagingService messagingService;
@@ -32,52 +32,27 @@ public class MessagingController {
         return messagingService.getMessagingChannels();
     }
 
-    /*@CrossOrigin(origins = "http://localhost:57384")
-    @GetMapping("/roomappointments/{roomId}")
-    public List<Appointment> getAppointmentsByRoomId(@PathVariable int roomId) {
-        return appointmentService.getAppointmentsByRoomId(roomId);
-    }
-    @CrossOrigin(origins = "http://localhost:59838/")
-    @GetMapping("/getitems")
 
-    public List<Appointment> getItems(){
-        List<Appointment> res=appointmentService.getappointments();
-        return res;
-    }*/
     @CrossOrigin(origins = "http://localhost:59838/")
     @PostMapping("/SendMessage")
     public void SendMessage(@RequestBody MessageDataDTO messageDataDTO){
-
+        Messaging_chanel channel=messagingService.GetChannelById(messageDataDTO.getChannel());
+        Employee user = channel.getUser().getEmployee_id()!=messageDataDTO.getSender().getEmployee_id()?channel.getUser():channel.getUser1();
         MessageData msg = new MessageData(messageDataDTO.getSender(),messageDataDTO.getMessage(),messageDataDTO.getMessageDate(),messagingService.GetChannelById(messageDataDTO.getChannel()));
         messagingService.SendMessage(msg);
+        notificationService.sendNotification(messageDataDTO.getSender().getFirstname()+messageDataDTO.getSender().getLastname(),messageDataDTO.getMessage(),user.getDeviceToken());
     }
 
     @CrossOrigin(origins = "http://localhost:59838/")
     @PostMapping("/AddChannel")
-    public void add(@RequestBody Messaging_chanel messaging_chanel){
-        messagingService.addChannel(messaging_chanel);
-    }
-/*
-    @CrossOrigin(origins = "http://localhost:59838/")
-    @PutMapping("/update")
-    public void update(@RequestBody Appointment appointment ){
-        appointmentService.updateAppointment(appointment);
-
+    public Long add(@RequestBody Messaging_chanel messaging_chanel){
+        return messagingService.addChannel(messaging_chanel).getChannel_id();
     }
 
     @CrossOrigin(origins = "http://localhost:59838/")
-    @PutMapping("/Approve")
-    public void Approve(@RequestBody Appointment appointment ){
-
-        notificationService.sendNotification("Reservation ", appointment.getRoom().getRoom_name()+" : "+appointment.getSubject());
-        appointmentService.updateAppointment(appointment);
-
+    @PutMapping("/UpdateChannel")
+    public Messaging_chanel updateUnreadMessage(@RequestBody Messaging_chanelDTO messaging_chanelDTO) {
+        return messagingService.updateUnreadMessage(messaging_chanelDTO.getChannel_id(),messaging_chanelDTO.getUnreadMessageCount());
     }
-    @CrossOrigin(origins = "http://localhost:59838/")
-    @DeleteMapping("/delete")
-    public void delete(@RequestParam int id){
-        appointmentService.deleteappointment(id);
 
-    }
-*/
 }

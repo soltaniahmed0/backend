@@ -23,7 +23,7 @@ public class MessagingService {
 
              List<MessageData> messageData= messagingDataRepository.findByChannel_Id(messaging_chanel.getChannel_id());
              Employee user = messaging_chanel.getUser().getEmployee_id()!=id?messaging_chanel.getUser():messaging_chanel.getUser1();
-            res.add(new Messaging_chanelDTO(messaging_chanel.getChannel_id(),user,MessageData.toDTOList(messageData)));
+            res.add(new Messaging_chanelDTO(messaging_chanel.getChannel_id(),user,MessageData.toDTOList(messageData),messaging_chanel.getUnreadMessageCount()));
         });
 
         return res;
@@ -34,47 +34,31 @@ public class MessagingService {
     public Messaging_chanel GetChannelById(Long id) {
         return messagingChannelRepository.findByChannel_id(id);
     }
+    public Messaging_chanel updateUnreadMessage(Long id,int val) {
+        Messaging_chanel existingChannel = GetChannelById(id);
 
-    public void addChannel(Messaging_chanel messaging_chanel){
-        messagingChannelRepository.save(messaging_chanel);
+        if (existingChannel != null) {
+            existingChannel.setUnreadMessageCount(val);
+            // Apply other modifications as needed
+
+            // Save the updated channel to the repository
+            return messagingChannelRepository.save(existingChannel);
+        }
+
+        // Handle the case when the existing channel is not found
+        // You can throw an exception or return null, depending on your requirement
+        return null;
+    }
+
+
+    public Messaging_chanel addChannel(Messaging_chanel messaging_chanel){
+
+        return  messagingChannelRepository.save(messaging_chanel);
         }
     public void SendMessage(MessageData messageData){
         messagingDataRepository.save(messageData);
     }
 
 
-        /*
-    public Appointment getappointment(int id) {
-        return  appointmentRepository.findById(id).orElse(null);
-    }
-    public List<Appointment> getAppointmentsByRoomId(int roomId) {
-        Optional<Room> findroom=roomRepository.findById(roomId);
-        if(findroom.isPresent()){
-            Room room=findroom.get();
-            return appointmentRepository.findByRoom(room);
-        }
-        else{
-            throw new IllegalArgumentException("room with id " + roomRepository+ " not found");
-        }
-    }
-    public Appointment updateAppointment(Appointment appointment) {
-        Optional<Appointment> appointmentOptional = appointmentRepository.findById(appointment.getId());
-        if (appointmentOptional.isPresent()) {
-            Appointment existingAppointment = appointmentOptional.get();
-            existingAppointment.setStartTime(appointment.getStartTime());
-            existingAppointment.setEndTime(appointment.getEndTime());
-            existingAppointment.setSubject(appointment.getSubject());
-            existingAppointment.setNotes(appointment.getNotes());
-            existingAppointment.setApprove(appointment.isApprove());
-            return appointmentRepository.save(existingAppointment);
-        } else {
-            throw new IllegalArgumentException("Appointment with id " + appointment.getId() + " not found");
-        }
-    }
 
-    public void deleteappointment(int id){
-        appointmentRepository.deleteById(id);
-    }
-
-*/
 }

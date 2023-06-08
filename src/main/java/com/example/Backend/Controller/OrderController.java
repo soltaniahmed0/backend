@@ -69,8 +69,9 @@ public class OrderController {
     @CrossOrigin(origins = "http://localhost:57384")
     @PutMapping("/orderReady/{id}")
     public FoodsOrders setOrderReady(@PathVariable int id){
-        notificationService.sendNotification("Order ready", String.valueOf(orderFoodService.getOrder(id).getOrder_food_id()));
-        return orderFoodService.UpdateOrder(id);
+        FoodsOrders res=orderFoodService.UpdateOrder(id);
+        notificationService.sendNotification("Order ready", String.valueOf(orderFoodService.getOrder(id).getOrder_food_id()),res.getEmployee().getDeviceToken());
+        return res;
     }
 
     @DeleteMapping("/deleteOrder/{id}")
