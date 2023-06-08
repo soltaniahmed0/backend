@@ -11,10 +11,21 @@ public class Messaging_chanelDTO {
     private Employee user;
     private List<MessageDataDTO> messages;
 
-    public Messaging_chanelDTO(Long channel_id, Employee user, List<MessageDataDTO> messages) {
+    public int getUnreadMessageCount() {
+        return UnreadMessageCount;
+    }
+
+    public void setUnreadMessageCount(int unreadMessageCount) {
+        UnreadMessageCount = unreadMessageCount;
+    }
+
+    private int UnreadMessageCount;
+
+    public Messaging_chanelDTO(Long channel_id, Employee user, List<MessageDataDTO> messages,int UnreadMessageCount) {
         this.channel_id = channel_id;
         this.user = user;
         this.messages = messages;
+        this.UnreadMessageCount=UnreadMessageCount;
     }
 
     public Long getChannel_id() {

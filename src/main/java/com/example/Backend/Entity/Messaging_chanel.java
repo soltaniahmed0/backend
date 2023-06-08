@@ -16,6 +16,7 @@ import java.util.List;
 @Table
 public class Messaging_chanel {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long channel_id;
 
     @ManyToOne
@@ -25,6 +26,8 @@ public class Messaging_chanel {
     @ManyToOne
     @JoinColumn(name = "user1_id", referencedColumnName = "employee_id")
     private Employee user1;
+
+    int unreadMessageCount;
 
 
 }

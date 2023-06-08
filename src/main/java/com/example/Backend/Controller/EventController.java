@@ -81,8 +81,9 @@ public class EventController {
     public ResponseEntity<Void> updateEventApproval(@PathVariable int eventId, @RequestParam boolean approve) {
         try {
             eventService.updateEventApproval(eventId, approve);
-            notificationService.sendNotificationToAll("Eventalll", eventService.getEvent(eventId).get().getEventName());
-            notificationService.sendNotification("Event Approved", eventService.getEvent(eventId).get().getEventName());
+            Optional<StartupEvent> event=eventService.getEvent(eventId);
+            //notificationService.sendNotificationToAll("Eventalll", event.get().getEventName(),event.get().getEmployee().getDeviceToken());
+            notificationService.sendNotification("Event Approved",event.get().getEventName(),event.get().getEmployee().getDeviceToken());
             return ResponseEntity.noContent().build();
         } catch (Exception e) {
             return ResponseEntity.notFound().build();

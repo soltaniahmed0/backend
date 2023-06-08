@@ -40,7 +40,7 @@ public class LostAndFoundController {
     @PostMapping("/add")
     public void add(@RequestBody LostAndFoundItem lostAndFoundItem){
         lostAndFoundService.addlost(lostAndFoundItem);
-        notificationService.sendNotification("lostAndFound",lostAndFoundItem.getTitle());
+        notificationService.sendNotificationToAll("lostAndFound",lostAndFoundItem.getTitle());
     }
 
     @CrossOrigin(origins = "http://localhost:59838/")
@@ -48,6 +48,7 @@ public class LostAndFoundController {
     public void update(@RequestBody LostAndFoundItem lostAndFoundItem ){
 
         lostAndFoundService.update(lostAndFoundItem);
+        notificationService.sendNotification(lostAndFoundItem.getTitle(),lostAndFoundItem.getOwner().getFirstname()+lostAndFoundItem.getOwner().getLastname(),lostAndFoundItem.getFinder().getDeviceToken());
 
     }
 //    @CrossOrigin(origins = "http://localhost:59838/")

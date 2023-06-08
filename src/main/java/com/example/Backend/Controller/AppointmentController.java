@@ -54,7 +54,7 @@ public class AppointmentController {
     @PutMapping("/Approve")
     public void Approve(@RequestBody Appointment appointment ){
 
-        notificationService.sendNotification("Reservation ", appointment.getRoom().getRoom_name()+" : "+appointment.getSubject());
+        notificationService.sendNotification("Reservation ", appointment.getRoom().getRoom_name()+" : "+appointment.getSubject(),appointment.getEmployee().getDeviceToken());
         appointmentService.updateAppointment(appointment);
 
     }
