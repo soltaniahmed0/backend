@@ -29,4 +29,9 @@ public interface EventGuestRepository  extends JpaRepository<EventGuest,Integer>
 
     @Transactional
     void deleteByEvent(StartupEvent event);
+
+    long countByEventAndInterested(StartupEvent event,boolean interested);
+    long countByEventAndGoing(StartupEvent event, boolean going);
+    long countByEventAndPaid(StartupEvent event, boolean paid);
+
 }

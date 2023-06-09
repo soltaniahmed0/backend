@@ -33,8 +33,7 @@ public class StartupEvent {
     private byte[] eventimg;
     private String eventStartTime;
     private String eventEndTime;
-    private String Location;
-    private String Host;
-
-
+    private String location;
+    private String host;
+    private double price;
 }

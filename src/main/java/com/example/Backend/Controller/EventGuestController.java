@@ -15,7 +15,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @Controller
@@ -38,7 +40,9 @@ public class EventGuestController {
             @PathVariable int event_id,
             @PathVariable int emp_id,
             @RequestParam boolean interested,
-            @RequestParam boolean going) {
+            @RequestParam boolean going,
+            @RequestParam boolean paid
+            ) {
         Optional<StartupEvent> startupEventOptional=eventService.getEvent(event_id);
         Optional<Employee> optionalEmployee=employeeService.getEmployeeById(emp_id);
         if (startupEventOptional.isPresent() && optionalEmployee.isPresent()) {
@@ -49,7 +53,7 @@ public class EventGuestController {
                 return ResponseEntity.status(HttpStatus.CONFLICT).build();
             } else {
 
-                return ResponseEntity.ok(eventGuestService.addGuest(event,employee,interested,going));
+                return ResponseEntity.ok(eventGuestService.addGuest(event,employee,interested,going,paid));
             }
         } else {
             return ResponseEntity.notFound().build();
@@ -107,11 +111,33 @@ public class EventGuestController {
         Optional<EventGuest> optionalGuest = eventGuestService.findEventandEmployee(event, employee);
         return ResponseEntity.ok(optionalGuest);
     }
-    @PutMapping("UpdateGuestEventStatus/{id}/{interested}/{going}")
-    public ResponseEntity<EventGuest>updateEvent(@PathVariable Integer id,@PathVariable boolean interested,@PathVariable boolean going)
+    @PutMapping("UpdateGuestEventStatus/{id}/{interested}/{going}/{paid}")
+    public ResponseEntity<EventGuest>updateEventStatus(@PathVariable Integer id,@PathVariable boolean interested,@PathVariable boolean going,@PathVariable boolean paid)
     {
 
-        return ResponseEntity.ok(eventGuestService.EventGuestupdate(id, interested, going));
+        return ResponseEntity.ok(eventGuestService.EventGuestupdate(id, interested, going,paid));
+    }
+
+    @GetMapping("/statistics/{eventId}")
+    public ResponseEntity<?> getEventGuestStatistics(@PathVariable Integer eventId) {
+
+        Optional<StartupEvent> event=eventRepository.findById(eventId);
+        if (event.isPresent())
+        {
+            StartupEvent event1=event.get();
+            long interestedCount = eventGuestRepository.countByEventAndInterested(event1, true);
+            long goingCount = eventGuestRepository.countByEventAndGoing(event1, true);
+            long paidCount = eventGuestRepository.countByEventAndPaid(event1, true);
+            Map<String, Long> statistics = new HashMap<>();
+            statistics.put("interestedCount", interestedCount);
+            statistics.put("goingCount", goingCount);
+            statistics.put("paidCount", paidCount);
+            return ResponseEntity.ok(statistics);
+        }
+        return ResponseEntity.notFound().build();
+
+
+
     }
 
 }

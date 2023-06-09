@@ -29,23 +29,25 @@ public class EventGuestService {
     {
         return eventGuestRepository.findByEventAndEmployee(startupEvent,employee);
     }
-    public EventGuest addGuest(StartupEvent event,Employee employee,boolean interested,boolean going)
+    public EventGuest addGuest(StartupEvent event,Employee employee,boolean interested,boolean going,boolean paid)
     {
         EventGuest newGuest = new EventGuest();
         newGuest.setEvent(event);
         newGuest.setEmployee(employee);
         newGuest.setInterested(interested);
         newGuest.setGoing(going);
+        newGuest.setPaid(paid);
         EventGuest savedGuest = eventGuestRepository.save(newGuest);
         return savedGuest;
     }
-    public EventGuest EventGuestupdate(Integer eventGuestid,boolean interested,boolean going)
+    public EventGuest EventGuestupdate(Integer eventGuestid,boolean interested,boolean going,boolean paid)
     {
         Optional<EventGuest> optionalEventGuest= eventGuestRepository.findById(eventGuestid);
         if (optionalEventGuest.isPresent()) {
             EventGuest eventGuest = optionalEventGuest.get();
             eventGuest.setInterested(interested);
             eventGuest.setGoing(going);
+            eventGuest.setPaid(paid);
             EventGuest savedEventGuest = eventGuestRepository.save(eventGuest);
             return savedEventGuest;
         } else {

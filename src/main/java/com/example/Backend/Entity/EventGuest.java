@@ -32,6 +32,7 @@ public class EventGuest {
     private boolean interested;
 
     private boolean going;
+    private boolean paid;
 
     public Integer getId() {
         return id;
