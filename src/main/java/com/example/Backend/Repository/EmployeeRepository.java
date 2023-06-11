@@ -33,4 +33,8 @@ public interface EmployeeRepository extends JpaRepository<Employee,Integer> {
     List<Employee> findByCompany(Company companyId);
 
 
+    @Query("SELECT e.deviceToken FROM Employee e WHERE e.deviceToken IS NOT NULL AND e.deviceToken <> ''")
+    List<String> findEmployeesWithDeviceToken();
+
+
 }

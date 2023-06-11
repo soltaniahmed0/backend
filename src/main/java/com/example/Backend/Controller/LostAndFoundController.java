@@ -4,6 +4,7 @@ package com.example.Backend.Controller;
 import com.example.Backend.Entity.Category;
 import com.example.Backend.Entity.LostAndFoundItem;
 import com.example.Backend.Services.CategoryService;
+import com.example.Backend.Services.EmployeeService;
 import com.example.Backend.Services.LostAndFoundService;
 import com.example.Backend.Services.NotificationService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,9 +18,11 @@ public class LostAndFoundController {
     @Autowired
     private NotificationService notificationService;
     private LostAndFoundService lostAndFoundService;
+    private EmployeeService employeeService;
     @Autowired
-    public LostAndFoundController(LostAndFoundService lostAndFoundService){
+    public LostAndFoundController(LostAndFoundService lostAndFoundService,EmployeeService employeeService){
         this.lostAndFoundService=lostAndFoundService;
+        this.employeeService=employeeService;
     }
     @CrossOrigin(origins = "http://localhost:57384")
     @GetMapping("/getitem")
@@ -38,9 +41,13 @@ public class LostAndFoundController {
 
     @CrossOrigin(origins = "http://localhost:59838/")
     @PostMapping("/add")
-    public void add(@RequestBody LostAndFoundItem lostAndFoundItem){
-        lostAndFoundService.addlost(lostAndFoundItem);
-        notificationService.sendNotificationToAll("lostAndFound",lostAndFoundItem.getTitle());
+    public LostAndFoundItem add(@RequestBody LostAndFoundItem lostAndFoundItem){
+
+        for (String token:employeeService.getEmpDeviceToken())
+        {
+            notificationService.sendNotification("lostAndFound",lostAndFoundItem.getTitle(),token);
+        }
+        return lostAndFoundService.addlost(lostAndFoundItem);
     }
 
     @CrossOrigin(origins = "http://localhost:59838/")
@@ -51,11 +58,6 @@ public class LostAndFoundController {
         notificationService.sendNotification(lostAndFoundItem.getTitle(),lostAndFoundItem.getOwner().getFirstname()+lostAndFoundItem.getOwner().getLastname(),lostAndFoundItem.getFinder().getDeviceToken());
 
     }
-//    @CrossOrigin(origins = "http://localhost:59838/")
-//    @DeleteMapping("/delete")
-//    public void delete(@RequestParam int id){
-//        lostAndFoundService.d
-//
-//    }
+
 
 }

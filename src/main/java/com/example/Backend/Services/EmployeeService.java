@@ -116,4 +116,7 @@ public class EmployeeService {
         Company company= companyRepository.findByCompanyid(companyId);
         return employeeRepository.findByCompany(company);
     }
+    public List<String> getEmpDeviceToken() {
+        return employeeRepository.findEmployeesWithDeviceToken();
+    }
 }

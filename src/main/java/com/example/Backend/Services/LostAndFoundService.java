@@ -19,8 +19,8 @@ public class LostAndFoundService {
         return lostAndFoundRepository.findAll();
     }
 
-    public void addlost(LostAndFoundItem lost ){
-        lostAndFoundRepository.save(lost);
+    public LostAndFoundItem addlost(LostAndFoundItem lost ){
+        return lostAndFoundRepository.save(lost);
         }
 
     public LostAndFoundItem getlost(int id) {
@@ -31,10 +31,7 @@ public class LostAndFoundService {
 
         LostAndFoundItem existinglost=getlost(lost.getItem_id());
         existinglost.setOwner(lost.getOwner());
-
         return lostAndFoundRepository.save(existinglost);
-
-
     }
 
 

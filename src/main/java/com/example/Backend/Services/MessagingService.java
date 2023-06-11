@@ -39,14 +39,11 @@ public class MessagingService {
 
         if (existingChannel != null) {
             existingChannel.setUnreadMessageCount(val);
-            // Apply other modifications as needed
 
-            // Save the updated channel to the repository
             return messagingChannelRepository.save(existingChannel);
         }
 
-        // Handle the case when the existing channel is not found
-        // You can throw an exception or return null, depending on your requirement
+
         return null;
     }
 

@@ -50,10 +50,10 @@ public class AuthenticationService {
                 .phone(request.getPhone())
                 .photo(request.getPhoto().getBytes())
                 .firstTime(true)
-                .DeviceToken("")
-                .Facebook("")
-                .Linkedin("")
-                .Instagram("")
+                .deviceToken("")
+                .facebook("")
+                .linkedin("")
+                .instagram("")
                 .build();
         var savedUser = repository.save(user);
         var jwtToken = jwtService.generateToken(user);

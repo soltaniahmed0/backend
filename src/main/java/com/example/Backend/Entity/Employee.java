@@ -27,7 +27,7 @@ public class Employee implements UserDetails {
     private int employee_id;
     @Column(unique = true)
     private String  email;
-    private String firstname, lastname,  password,  position,DeviceToken,Instagram,Linkedin,Facebook;
+    private String firstname, lastname,  password,  position,deviceToken,instagram,linkedin,facebook;
     @Column(unique = true)
     private Integer phone;
 
@@ -177,22 +177,6 @@ public class Employee implements UserDetails {
     public boolean isEnabled() {
         return true;
     }
-    @Override
-    public String toString() {
-        return "Employee{" +
-                "employee_id=" + employee_id +
-                ", email='" + email + '\'' +
-                ", firstname='" + firstname + '\'' +
-                ", lastname='" + lastname + '\'' +
-                ", password='" + password + '\'' +
 
-                ", position='" + position + '\'' +
-                ", phone=" + phone +
-                ", theme=" + theme +
-                ", availability=" + availability +
-                ", photo=" + Arrays.toString(photo) +
-                ", role=" + role +
-                '}';
-    }
 
 }

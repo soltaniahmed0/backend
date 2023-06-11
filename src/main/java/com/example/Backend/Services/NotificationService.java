@@ -13,16 +13,16 @@ public class NotificationService {
     public NotificationService(FirebaseMessaging firebaseMessaging) {
         this.firebaseMessaging = firebaseMessaging;
     }
+
     public void sendNotification(String title, String body,String token) {
-
-        Message message = Message.builder()
-                .setNotification(Notification.builder().setTitle(title).setBody(body).setImage("https://via.placeholder.com/500x500").build())
-                .setToken(token)
-                .build();
+        //sendNotificationtest(title,body);
 
 
         try {
-            sendNotificationtest(title,body);
+            Message message = Message.builder()
+                    .setNotification(Notification.builder().setTitle(title).setBody(body).build())
+                    .setToken(token)
+                    .build();
             firebaseMessaging.send(message);
         } catch (FirebaseMessagingException e) {
             // Handle the exception
@@ -30,58 +30,21 @@ public class NotificationService {
         }
 
     }
-    public void sendNotificationtest(String title, String body) {
-
-        Message message = Message.builder()
-                .setNotification(Notification.builder().setTitle(title).setBody(body).setImage("https://via.placeholder.com/500x500").build())
-                .setToken("cCDIlaGoQC2XCzARCgWOyV:APA91bFhaVgwv16Qn1GMG6Nd9cnUC0vWyRK2zmfulLhkUdhlYKrrm09aVsLoFFuXfzrdrZoCnURZcra3hiIenK3aWXPIRSDKFBH0ymMV7KQgU1QuSDiYCnkbwTU8xoPal2B2a9QDdO2b")
-                .build();
-
-
-        try {
-            firebaseMessaging.send(message);
-        } catch (FirebaseMessagingException e) {
-            // Handle the exception
-            System.err.println("Failed to send notification: " + e.getMessage());
-        }
-
-    }
-//    public void sendNotification(String title, String body,String token) {
-//        List<String> tokens = Arrays.asList(
-//                "cCDIlaGoQC2XCzARCgWOyV:APA91bFhaVgwv16Qn1GMG6Nd9cnUC0vWyRK2zmfulLhkUdhlYKrrm09aVsLoFFuXfzrdrZoCnURZcra3hiIenK3aWXPIRSDKFBH0ymMV7KQgU1QuSDiYCnkbwTU8xoPal2B2a9QDdO2b",
-//                token
-//        );
+//    public void sendNotificationtest(String title, String body) {
 //
-//        MulticastMessage message = MulticastMessage.builder()
-//                .setNotification(Notification.builder()
-//                        .setTitle(title)
-//                        .setBody(body)
-//                        .setImage("https://via.placeholder.com/500x500")
-//                        .build())
-//                .addAllTokens(tokens)
+//        Message message = Message.builder()
+//                .setNotification(Notification.builder().setTitle(title).setBody(body).setImage("https://via.placeholder.com/500x500").build())
+//                .setToken("cCDIlaGoQC2XCzARCgWOyV:APA91bFhaVgwv16Qn1GMG6Nd9cnUC0vWyRK2zmfulLhkUdhlYKrrm09aVsLoFFuXfzrdrZoCnURZcra3hiIenK3aWXPIRSDKFBH0ymMV7KQgU1QuSDiYCnkbwTU8xoPal2B2a9QDdO2b")
 //                .build();
 //
+//
 //        try {
-//            BatchResponse response = FirebaseMessaging.getInstance().sendMulticast(message);
-//            // Process the response if needed
+//            firebaseMessaging.send(message);
 //        } catch (FirebaseMessagingException e) {
 //            // Handle the exception
+//            System.err.println("Failed to send notification: " + e.getMessage());
 //        }
 //
 //    }
 
-    public void sendNotificationToAll(String title, String body) {
-        Message message = Message.builder()
-                .setNotification(Notification.builder().setTitle(title).setBody(body).setImage("https://via.placeholder.com/500x500").build())
-                .setTopic("allDevices")
-                .build();
-
-
-        try {
-            firebaseMessaging.send(message);
-        } catch (FirebaseMessagingException e) {
-            // Handle the exception
-            System.err.println("Failed to send notification: " + e.getMessage());
-        }
-    }
 }
