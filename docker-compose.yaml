@@ -1,7 +1,7 @@
 version: '3'
 services:
   mysql:
-    image: image-mysql-ahmed:1.0.0
+    image: sql-ahmed-img:1.0.0
     volumes:
       - mysql-data:/var/lib/mysql
     ports:

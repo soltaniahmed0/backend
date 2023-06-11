@@ -1,15 +1,20 @@
-FROM openjdk:17-jdk-slim
+# Use an official MySQL image as the base
+FROM mysql:latest
 
-# Set the working directory
-WORKDIR /app
+# Set the root password for MySQL
+ENV MYSQL_ROOT_PASSWORD=ahmedsoltani
 
-# Copy the application JAR file
-COPY target/Backend-3.0.4.jar /app
-ENV SPRING_DATASOURCE_URL=jdbc:mysql://localhost:3306/pfe
-ENV SPRING_DATASOURCE_USERNAME=root
-ENV SPRING_DATASOURCE_PASSWORD=ahmedsoltani
+# Expose port 3306 for MySQL
+EXPOSE 3306
 
-EXPOSE 8081
+# Copy custom configuration file, if needed
+# COPY my.cnf /etc/mysql/my.cnf
 
-# Set the entry point
-CMD ["java", "-jar", "Backend-3.0.4.jar"]
+# (Optional) Create a new database and user
+ENV MYSQL_DATABASE=pfe
+#ENV MYSQL_USER=root
+#ENV MYSQL_PASSWORD=ahmedsoltani
+# ADD init.sql /docker-entrypoint-initdb.d
+
+# Start MySQL server when the container launches
+CMD ["mysqld"]

@@ -45,6 +45,7 @@ public class EmployeeController {
             updatedEmployee.setFirstname(employee.getFirstname());
             updatedEmployee.setLastname(employee.getLastname());
             updatedEmployee.setCompany(employee.getCompany());
+            updatedEmployee.setPhoto(employee.getPhoto());
             updatedEmployee.setPosition(employee.getPosition());
             updatedEmployee.setPhone(employee.getPhone());
             updatedEmployee.setTheme(employee.isTheme());
